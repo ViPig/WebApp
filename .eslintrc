@@ -24,6 +24,7 @@
       "ignoreStateless": true
     }],
     "react/prefer-stateless-function": 0,
-    "react/jsx-no-bind": 0
+    "react/jsx-no-bind": 0,
+    "max-len": 0
   }
 }

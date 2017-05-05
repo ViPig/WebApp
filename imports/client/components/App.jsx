@@ -9,9 +9,13 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible';
-import LoginModal from './accounts/LoginModal';
+import { showLeftDrawer } from '../actions/setLeftDrawerVisible';
+
+import LoginModal from './Accounts/LoginModal';
+import LeftDrawer from './Drawer/LeftDrawer';
 
 class Login extends Component {
   static muiName = 'FlatButton';
@@ -56,21 +60,33 @@ class MainMenu extends Component {
   showLoginModal() {
     this.props.showLoginModal(true);
   }
+  showLeftDrawer() {
+    this.props.showLeftDrawer(true);
+  }
   render() {
     console.log('this.props', this.props);
-    const { showModal } = this.props;
-    console.log('showModal', showModal);
+    const { appState } = this.props;
+    console.log('showModal', appState);
 
     return (
       <div>
         {/* <FlatButton label="Login" onTouchTap={() => this.setState({ open: true })} /> */}
         <AppBar
           title="Home"
-          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+          iconElementLeft={
+            <IconButton
+              onTouchTap={() => this.showLeftDrawer()}
+            >
+              <NavigationMenu />
+            </IconButton>
+          }
           iconElementRight={this.state.logged ? <Logged /> : <FlatButton label="Login" onTouchTap={() => this.showLoginModal()} />}
         />
         <LoginModal
-          showModal={showModal}
+          appState={appState}
+        />
+        <LeftDrawer
+          appState={appState}
         />
       </div>
     );
@@ -80,12 +96,20 @@ class MainMenu extends Component {
 function mapStateToProps(state) {
   console.log('state', state);
   return {
-    showModal: state,
+    appState: state,
   };
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    showLoginModal: (isShowing) => { dispatch(showLoginModal(isShowing)); },
+    showLeftDrawer: (value) => { dispatch(showLeftDrawer(value)); },
+  };
+}
+
 MainMenu.propTypes = {
   showLoginModal: PropTypes.func.isRequired,
-  showModal: PropTypes.object,
+  showLeftDrawer: PropTypes.func.isRequired,
+  appState: PropTypes.object,
 };
 
-export default connect(mapStateToProps, { showLoginModal })(MainMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);

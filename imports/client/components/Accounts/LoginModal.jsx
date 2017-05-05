@@ -6,11 +6,11 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
-import { showLoginModal } from '../../actions/setLoginModalVisible';
+import { hideLoginModal } from '../../actions/setLoginModalVisible';
 
 class LoginModal extends React.Component {
   handleClose = () => {
-    this.props.showLoginModal(false);
+    this.props.hideLoginModal();
   }
   render() {
     console.log('this.props', this.props);
@@ -37,7 +37,7 @@ class LoginModal extends React.Component {
           actions={actions}
           modal={false}
           contentStyle={{ width: 350 }}
-          open={isShow.showModal.isShowing === undefined ? false : isShow.showModal.isShowing}
+          open={isShow.appState.loginModal.isShowing === undefined ? false : isShow.appState.loginModal.isShowing}
           onRequestClose={this.handleClose}
         >
           <div>
@@ -55,13 +55,12 @@ class LoginModal extends React.Component {
           </div>
 
         </Dialog>
-
       </div>
 
     );
   }
 }
 LoginModal.propTypes = {
-  showLoginModal: PropTypes.func.isRequired,
+  hideLoginModal: PropTypes.func.isRequired,
 };
-export default connect(null, { showLoginModal })(LoginModal);
+export default connect(null, { hideLoginModal })(LoginModal);
