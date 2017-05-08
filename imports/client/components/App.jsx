@@ -12,8 +12,9 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible';
-import { showLeftDrawer } from '../actions/setLeftDrawerVisible';
+import { showLeftDrawer, hideLeftDrawer } from '../actions/setLeftDrawerVisible';
 
+import Store from '../store/store';
 import LoginModal from './Accounts/LoginModal';
 import LeftDrawer from './Drawer/LeftDrawer';
 
@@ -61,7 +62,13 @@ class MainMenu extends Component {
     this.props.showLoginModal(true);
   }
   showLeftDrawer() {
-    this.props.showLeftDrawer(true);
+    if (!Store.getState().leftDrawer.showLD) {
+      this.props.showLeftDrawer(true);
+    } else {
+      this.props.hideLeftDrawer();
+    }
+
+    console.log('getState', Store.getState());
   }
   render() {
     console.log('this.props', this.props);
@@ -103,12 +110,14 @@ function mapDispatchToProps(dispatch) {
   return {
     showLoginModal: (isShowing) => { dispatch(showLoginModal(isShowing)); },
     showLeftDrawer: (value) => { dispatch(showLeftDrawer(value)); },
+    hideLeftDrawer: () => { dispatch(hideLeftDrawer()); },
   };
 }
 
 MainMenu.propTypes = {
   showLoginModal: PropTypes.func.isRequired,
   showLeftDrawer: PropTypes.func.isRequired,
+  hideLeftDrawer: PropTypes.func.isRequired,
   appState: PropTypes.object,
 };
 
