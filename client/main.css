@@ -1,7 +1,30 @@
 body{
    margin: 0px;
-   backgroundColor: '#edecec',
-   display: 'flex',
-   flex: 1,
-   overflow: 'hidden',
+
+}
+.login_page{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /*align-items: center;*/
+  justify-content: center;
+  background-color: #CFD8DC;
+}
+
+.login_page_paper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login_page_form {
+  margin-left: 20px;
+}
+.login_page_icon{
+  margin:auto;
+}
+.login_page_register{
+  display: flex;
+  margin-top: 10px;
 }
