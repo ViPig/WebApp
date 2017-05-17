@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
@@ -33,60 +36,96 @@ const textFieldColor = {
   borderColor: '#212121',
 };
 
-const PaperExampleRounded = () => (
-  <div className="login_page">
-    <div data-reactroot>
-      <div className="login_page_paper">
-        <div>
-          <Paper style={style} zDepth={5} rounded >
-            <Paper style={style_1} zDepth={1} >
-              <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" />
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+);
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function createUser(values) {
+  await sleep(500);
+  window.alert(JSON.stringify(values, null, 2));
+  email = values.email;
+  password = values.password;
+  password_confirm = values.password_confirm;
+  if (password === password_confirm) {
+    Accounts.createUser({ email, password }, (err) => {
+      if (err) {
+        window.alert(JSON.stringify(err.reason, null, 2));
+      }
+    });
+  } else {
+    window.alert('Password does not match!');
+  }
+}
+const PaperExampleRounded = (props) => {
+  const { handleSubmit, pristine, reset, submitting } = props;
+  return (
+    <div className="login_page">
+      <div data-reactroot>
+        <div className="login_page_paper">
+          <div>
+            <Paper style={style} zDepth={5} rounded >
+              <Paper style={style_1} zDepth={1} >
+                <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" />
+              </Paper>
+              <Divider />
+              <form onSubmit={handleSubmit(createUser)}>
+                <div className="login_page_form">
+                  <Field
+                    type="email"
+                    name="email"
+                    component={renderTextField}
+                    hintText="Enter your email"
+                    label="Email"
+                    underlineFocusStyle={textFieldColor}
+                    floatingLabelFocusStyle={textFieldColor}
+                  />
+                  <Field
+                    name="password"
+                    type="password"
+                    component={renderTextField}
+                    hintText="Enter your password"
+                    label="Password"
+                    underlineFocusStyle={textFieldColor}
+                    floatingLabelFocusStyle={textFieldColor}
+                  />
+                  <Field
+                    name="password_confirm"
+                    type="password"
+                    component={renderTextField}
+                    hintText="Re-enter your password"
+                    label="Confirm Password"
+                    underlineFocusStyle={textFieldColor}
+                    floatingLabelFocusStyle={textFieldColor}
+                  />
+                  <RaisedButton
+                    type="submit"
+                    label="Sign Up"
+                    labelPosition="before"
+                    primary
+                    disabled={pristine || submitting}
+                    style={loginButton}
+                    buttonStyle={{ backgroundColor: '#263238' }}
+                  />
+                  <div className="login_page_register">
+                    <Link to="/Login" >Already have an account?</Link>
+                  </div>
+                </div>
+              </form>
             </Paper>
-            <Divider />
-            <div className="login_page_form">
-              <TextField
-                hintText="Enter your account"
-                floatingLabelText="Username"
-                underlineFocusStyle={textFieldColor}
-                floatingLabelFocusStyle={textFieldColor}
-              />
-              <TextField
-                type="password"
-                hintText="Enter your password"
-                floatingLabelText="Password"
-                underlineFocusStyle={textFieldColor}
-                floatingLabelFocusStyle={textFieldColor}
-              />
-              <TextField
-                type="password"
-                hintText="Re-enter your password"
-                floatingLabelText="Confirm Password"
-                underlineFocusStyle={textFieldColor}
-                floatingLabelFocusStyle={textFieldColor}
-              />
-              <TextField
-                type="email"
-                hintText="Enter your email"
-                floatingLabelText="Email"
-                underlineFocusStyle={textFieldColor}
-                floatingLabelFocusStyle={textFieldColor}
-              />
-              <RaisedButton
-                label="Sign Up"
-                labelPosition="before"
-                primary
-                style={loginButton}
-                buttonStyle={{ backgroundColor: '#263238' }}
-              />
-              <div className="login_page_register">
-                <Link to="/Login" >Already have an account?</Link>
-              </div>
-            </div>
-          </Paper>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default PaperExampleRounded;
+export default reduxForm({
+  form: 'MaterialUiForm',
+})(PaperExampleRounded);

@@ -15,7 +15,7 @@ import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible'
 import { showLeftDrawer, hideLeftDrawer } from '../actions/setLeftDrawerVisible';
 
 import Store from '../store/store';
-import LoginModal from './Accounts/LoginModal';
+// import LoginModal from './Accounts/LoginModal';
 import LeftDrawer from './Drawer/LeftDrawer';
 
 class Login extends Component {
@@ -58,9 +58,9 @@ class MainMenu extends Component {
     };
   }
 
-  showLoginModal() {
-    this.props.showLoginModal(true);
-  }
+  // showLoginModal() {
+  //   this.props.showLoginModal(true);
+  // }
   showLeftDrawer() {
     if (!Store.getState().leftDrawer.showLD) {
       this.props.showLeftDrawer(true);
@@ -79,6 +79,7 @@ class MainMenu extends Component {
       <div>
         {/* <FlatButton label="Login" onTouchTap={() => this.setState({ open: true })} /> */}
         <AppBar
+          className="appbar"
           title="Home"
           iconElementLeft={
             <IconButton
@@ -87,11 +88,11 @@ class MainMenu extends Component {
               <NavigationMenu />
             </IconButton>
           }
-          iconElementRight={this.state.logged ? <Logged /> : <FlatButton label="Login" onTouchTap={() => this.showLoginModal()} />}
+          // iconElementRight={this.state.logged ? <Logged /> : <FlatButton label="Login" onTouchTap={() => this.showLoginModal()} />}
         />
-        <LoginModal
+        {/* <LoginModal
           appState={appState}
-        />
+        /> */}
         <LeftDrawer
           appState={appState}
         />
@@ -108,14 +109,14 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    showLoginModal: (isShowing) => { dispatch(showLoginModal(isShowing)); },
+    // showLoginModal: (isShowing) => { dispatch(showLoginModal(isShowing)); },
     showLeftDrawer: (value) => { dispatch(showLeftDrawer(value)); },
     hideLeftDrawer: () => { dispatch(hideLeftDrawer()); },
   };
 }
 
 MainMenu.propTypes = {
-  showLoginModal: PropTypes.func.isRequired,
+  // showLoginModal: PropTypes.func.isRequired,
   showLeftDrawer: PropTypes.func.isRequired,
   hideLeftDrawer: PropTypes.func.isRequired,
   appState: PropTypes.object,
