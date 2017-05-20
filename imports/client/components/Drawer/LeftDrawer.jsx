@@ -56,27 +56,28 @@ class DrawerUndockedExample extends React.Component {
           containerStyle={{ height: 'calc(100% - 64px)', top: 64, zIndex: 1000 }}
         >
           <List>
-            <ListItem primaryText="Home" leftIcon={<ActionHome />} />
+            <ListItem primaryText="Home" leftIcon={<ActionHome />} onTouchTap={this.handleClose} />
           </List>
           <List>
             <Subheader>PRODUCTS</Subheader>
-            <ListItem primaryText="Function 1" leftIcon={<KeyboardArrowRight />} />
-            <ListItem primaryText="Function 2" leftIcon={<KeyboardArrowRight />} />
-            <ListItem primaryText="Function 3" leftIcon={<KeyboardArrowRight />} />
+            <ListItem primaryText="Function 1" leftIcon={<KeyboardArrowRight />} onTouchTap={this.handleClose} />
+            <ListItem primaryText="Function 2" leftIcon={<KeyboardArrowRight />} onTouchTap={this.handleClose} />
+            <ListItem primaryText="Function 3" leftIcon={<KeyboardArrowRight />} onTouchTap={this.handleClose} />
             <ListItem
               primaryText="Function 4"
               leftIcon={<KeyboardArrowRight />}
+              onTouchTap={this.handleClose}
               nestedItems={[
-                <ListItem primaryText="Subfunction 1" leftIcon={<SubdirectoryArrowRight />} />,
-                <ListItem primaryText="Subfunction 2" leftIcon={<SubdirectoryArrowRight />} />,
-                <ListItem primaryText="Subfunction 3" leftIcon={<SubdirectoryArrowRight />} />,
-                <ListItem primaryText="Subfunction 4" leftIcon={<SubdirectoryArrowRight />} />,
+                <ListItem primaryText="Subfunction 1" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
+                <ListItem primaryText="Subfunction 2" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
+                <ListItem primaryText="Subfunction 3" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
+                <ListItem primaryText="Subfunction 4" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
               ]}
             />
           </List>
           <List>
-            <ListItem primaryText="Account settings" leftIcon={<SettingsApplications />} />
-            <ListItem primaryText="Log out" leftIcon={<ExitToApp />} />
+            <ListItem primaryText="Account settings" leftIcon={<SettingsApplications />} onTouchTap={this.handleClose} />
+            <ListItem primaryText="Log out" leftIcon={<ExitToApp />} onTouchTap={this.handleClose} />
           </List>
         </Drawer>
       </div>
