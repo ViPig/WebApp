@@ -15,8 +15,13 @@ import App from '../imports/client/components/App';
 injectTapEventPlugin();
 
 Tracker.autorun(() => {
+  // Magical
   const isAuthenticated = !!Meteor.userId();
-  onAuthChange(isAuthenticated);
+  if (isAuthenticated) {
+    onAuthChange.authenticate();
+  } else {
+    onAuthChange.signout();
+  }
 });
 
 Meteor.startup(function () {
