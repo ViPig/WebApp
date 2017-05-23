@@ -6,15 +6,15 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
-// New libs
 import { List, ListItem } from 'material-ui/List';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import ActionHome from 'material-ui/svg-icons/action/home';
-import ExitToApp from 'material-ui/svg-icons/action/exit-to-app';
-import SettingsApplications from 'material-ui/svg-icons/action/settings-applications';
-import KeyboardArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import SubdirectoryArrowRight from 'material-ui/svg-icons/navigation/subdirectory-arrow-right';
-import Subheader from 'material-ui/Subheader';
+import Avatar from 'material-ui/Avatar';
+
+import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
+import ContentSend from 'material-ui/svg-icons/content/send';
+import ContentDrafts from 'material-ui/svg-icons/content/drafts';
+import Divider from 'material-ui/Divider';
+import ActionInfo from 'material-ui/svg-icons/action/info';
 
 import { hideLeftDrawer } from '../../actions/setLeftDrawerVisible';
 
@@ -34,6 +34,12 @@ const styles = {
   content: {
     flex: 1,
     padding: '2em',
+  },
+  header_avatar: {
+    height: 70,
+    width: '100%',
+    flex: 1,
+    backgroundImage: "url('images/drawer-header-background.jpg')",
   },
 };
 
@@ -55,29 +61,38 @@ class DrawerUndockedExample extends React.Component {
           onRequestChange={this.handleClose}
           containerStyle={{ height: 'calc(100% - 64px)', top: 64, zIndex: 1000 }}
         >
-          <List>
-            <ListItem primaryText="Home" leftIcon={<ActionHome />} onTouchTap={this.handleClose} />
-          </List>
-          <List>
-            <Subheader>PRODUCTS</Subheader>
-            <ListItem primaryText="Function 1" leftIcon={<KeyboardArrowRight />} onTouchTap={this.handleClose} />
-            <ListItem primaryText="Function 2" leftIcon={<KeyboardArrowRight />} onTouchTap={this.handleClose} />
-            <ListItem primaryText="Function 3" leftIcon={<KeyboardArrowRight />} onTouchTap={this.handleClose} />
+          <List
+            style={styles.header_avatar}
+          >
             <ListItem
-              primaryText="Function 4"
-              leftIcon={<KeyboardArrowRight />}
-              onTouchTap={this.handleClose}
-              nestedItems={[
-                <ListItem primaryText="Subfunction 1" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
-                <ListItem primaryText="Subfunction 2" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
-                <ListItem primaryText="Subfunction 3" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
-                <ListItem primaryText="Subfunction 4" leftIcon={<SubdirectoryArrowRight />} onTouchTap={this.handleClose} />,
-              ]}
+              disabled
+              leftAvatar={
+                <Avatar src="images/ok-128.jpg" />
+              }
+              primaryText="Name"
+              secondaryText={
+                <p>
+                  <span>Email: </span>
+                  mail@gmail.com
+                </p>
+              }
+              secondaryTextLines={2}
             />
           </List>
+          <Divider />
           <List>
-            <ListItem primaryText="Account settings" leftIcon={<SettingsApplications />} onTouchTap={this.handleClose} />
-            <ListItem primaryText="Log out" leftIcon={<ExitToApp />} onTouchTap={this.handleClose} />
+            <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+            <ListItem primaryText="Starred" leftIcon={<ActionGrade />} />
+            <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
+            <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
+            <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
+          </List>
+          <Divider />
+          <List>
+            <ListItem primaryText="All mail" rightIcon={<ActionInfo />} />
+            <ListItem primaryText="Trash" rightIcon={<ActionInfo />} />
+            <ListItem primaryText="Spam" rightIcon={<ActionInfo />} />
+            <ListItem primaryText="Follow up" rightIcon={<ActionInfo />} />
           </List>
         </Drawer>
       </div>

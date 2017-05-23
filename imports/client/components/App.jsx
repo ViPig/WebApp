@@ -17,6 +17,7 @@ import { showLeftDrawer, hideLeftDrawer } from '../actions/setLeftDrawerVisible'
 import Store from '../store/store';
 // import LoginModal from './Accounts/LoginModal';
 import LeftDrawer from './Drawer/LeftDrawer';
+import HomeScreen from './Home';
 
 class Login extends Component {
   static muiName = 'FlatButton';
@@ -96,6 +97,7 @@ class MainMenu extends Component {
         <LeftDrawer
           appState={appState}
         />
+        <HomeScreen />
       </div>
     );
   }
