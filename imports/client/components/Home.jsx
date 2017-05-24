@@ -4,6 +4,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import Divider from 'material-ui/Divider';
 
 
 const cardheader = {
@@ -79,6 +80,7 @@ export default class HomeScreen extends Component {
           </Col>
         </Row>
       </Grid>
+
     );
   }
 }

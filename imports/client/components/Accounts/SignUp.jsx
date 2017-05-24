@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
@@ -13,11 +14,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
   height: 450,
-  width: 300,
+  width: 500,
 };
 const style_1 = {
   height: 80,
-  width: 300,
+  width: 500,
   backgroundColor: '#263238',
 };
 
@@ -29,7 +30,7 @@ const largeIcon = {
 };
 const loginButton = {
   display: 'flex',
-  width: 257,
+  // width: 250,
 };
 const textFieldColor = {
   color: '#212121',
@@ -50,11 +51,16 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 async function createUser(values) {
   await sleep(500);
   window.alert(JSON.stringify(values, null, 2));
+  username = values.username;
   email = values.email;
   password = values.password;
   password_confirm = values.password_confirm;
+  profile = {
+    first_name: values.first_name,
+    last_name: values.last_name,
+  };
   if (password === password_confirm) {
-    Accounts.createUser({ email, password }, (err) => {
+    Accounts.createUser({ username, email, password, profile }, (err) => {
       if (err) {
         window.alert(JSON.stringify(err.reason, null, 2));
       }
@@ -77,45 +83,86 @@ const PaperExampleRounded = (props) => {
               <Divider />
               <form onSubmit={handleSubmit(createUser)}>
                 <div className="login_page_form">
-                  <Field
-                    type="email"
-                    name="email"
-                    component={renderTextField}
-                    hintText="Enter your email"
-                    label="Email"
-                    underlineFocusStyle={textFieldColor}
-                    floatingLabelFocusStyle={textFieldColor}
-                  />
-                  <Field
-                    name="password"
-                    type="password"
-                    component={renderTextField}
-                    hintText="Enter your password"
-                    label="Password"
-                    underlineFocusStyle={textFieldColor}
-                    floatingLabelFocusStyle={textFieldColor}
-                  />
-                  <Field
-                    name="password_confirm"
-                    type="password"
-                    component={renderTextField}
-                    hintText="Re-enter your password"
-                    label="Confirm Password"
-                    underlineFocusStyle={textFieldColor}
-                    floatingLabelFocusStyle={textFieldColor}
-                  />
-                  <RaisedButton
-                    type="submit"
-                    label="Sign Up"
-                    labelPosition="before"
-                    primary
-                    disabled={pristine || submitting}
-                    style={loginButton}
-                    buttonStyle={{ backgroundColor: '#263238' }}
-                  />
-                  <div className="login_page_register">
-                    <Link to="/Login" >Already have an account?</Link>
-                  </div>
+                  <Grid fluid>
+                    <Row>
+                      <Col xs={12} sm={12} md={6} lg={6}>
+                        <Field
+                          type="text"
+                          name="first_name"
+                          style={{ width: '100%' }}
+                          component={renderTextField}
+                          hintText="What is your First Name ?"
+                          label="First Name"
+                          underlineFocusStyle={textFieldColor}
+                          floatingLabelFocusStyle={textFieldColor}
+                        />
+                      </Col>
+                      <Col xs={12} sm={12} md={6} lg={6}>
+                        <Field
+                          type="text"
+                          name="last_name"
+                          style={{ width: '100%' }}
+                          component={renderTextField}
+                          hintText="What is your Last Name ?"
+                          label="Last Name"
+                          underlineFocusStyle={textFieldColor}
+                          floatingLabelFocusStyle={textFieldColor}
+                        />
+                      </Col>
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <Field
+                          type="email"
+                          name="email"
+                          fullWidth
+                          component={renderTextField}
+                          hintText="Enter your email"
+                          label="Email"
+                          underlineFocusStyle={textFieldColor}
+                          floatingLabelFocusStyle={textFieldColor}
+                        />
+                      </Col>
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <Field
+                          name="password"
+                          type="password"
+                          fullWidth
+                          component={renderTextField}
+                          hintText="Enter your password"
+                          label="Password"
+                          underlineFocusStyle={textFieldColor}
+                          floatingLabelFocusStyle={textFieldColor}
+                        />
+                      </Col>
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <Field
+                          name="password_confirm"
+                          type="password"
+                          fullWidth
+                          component={renderTextField}
+                          hintText="Re-enter your password"
+                          label="Confirm Password"
+                          underlineFocusStyle={textFieldColor}
+                          floatingLabelFocusStyle={textFieldColor}
+                        />
+                      </Col>
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <RaisedButton
+                          type="submit"
+                          label="Sign Up"
+                          labelPosition="before"
+                          primary
+                          disabled={pristine || submitting}
+                          style={loginButton}
+                          buttonStyle={{ backgroundColor: '#263238' }}
+                        />
+                      </Col>
+                      <Col xs={12} sm={12} md={12} lg={12}>
+                        <div className="login_page_register">
+                          <Link to="/Login" >Already have an account?</Link>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Grid>
                 </div>
               </form>
             </Paper>

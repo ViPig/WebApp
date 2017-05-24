@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
@@ -32,7 +33,6 @@ const largeIcon = {
 };
 const loginButton = {
   display: 'flex',
-  width: 257,
 };
 const textFieldColor = {
   color: '#212121',
@@ -95,37 +95,52 @@ class renderLogin extends React.Component {
                 <Divider />
                 <form onSubmit={handleSubmit(() => { this.showResults(); })} >
                   <div className="login_page_form">
-                    <Field
-                      type="email"
-                      name="email"
-                      component={renderTextField}
-                      hintText="Enter your e-mail"
-                      label="Email"
-                      underlineFocusStyle={textFieldColor}
-                      floatingLabelFocusStyle={textFieldColor}
-                    />
-                    <Field
-                      name="password"
-                      component={renderTextField}
-                      hintText="Enter your password"
-                      label="Password"
-                      type="password"
-                      underlineFocusStyle={textFieldColor}
-                      floatingLabelFocusStyle={textFieldColor}
-                    />
-                    <RaisedButton
-                      type="submit"
-                      label="Login"
-                      labelPosition="before"
-                      primary
-                      disabled={pristine || submitting}
-                      style={loginButton}
-                      buttonStyle={{ backgroundColor: '#263238' }}
+                    <Grid fluid>
+                      <Row>
+                        <Col xs={12} sm={12} md={12} lg={12}>
+                          <Field
+                            type="email"
+                            name="email"
+                            fullWidth
+                            component={renderTextField}
+                            hintText="Enter your e-mail"
+                            label="Email"
+                            underlineFocusStyle={textFieldColor}
+                            floatingLabelFocusStyle={textFieldColor}
+                          />
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12}>
+                          <Field
+                            name="password"
+                            fullWidth
+                            component={renderTextField}
+                            hintText="Enter your password"
+                            label="Password"
+                            type="password"
+                            underlineFocusStyle={textFieldColor}
+                            floatingLabelFocusStyle={textFieldColor}
+                          />
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12}>
+                          <RaisedButton
+                            type="submit"
+                            label="Login"
+                            labelPosition="before"
+                            primary
+                            disabled={pristine || submitting}
+                            style={loginButton}
+                            buttonStyle={{ backgroundColor: '#263238' }}
 
-                    />
-                    <div className="login_page_register">
-                      <Link to="/SignUp" >Don&apos;t have an account?</Link>
-                    </div>
+                          />
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12}>
+                          <div className="login_page_register">
+                            <Link to="/SignUp" >Don&apos;t have an account?</Link>
+                          </div>
+                        </Col>
+
+                      </Row>
+                    </Grid>
                   </div>
                 </form>
               </Paper>

@@ -22,7 +22,8 @@ body{
   justify-content: center;
 }
 .login_page_form {
-  margin-left: 20px;
+  /*margin-left: 20px;*/
+  /*margin-right: 20px;*/
 }
 .login_page_icon{
   margin:auto;
