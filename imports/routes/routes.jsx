@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'reac
 import App from '../client/components/App';
 import Login from '../client/components/Accounts/Login';
 import SignUp from '../client/components/Accounts/SignUp';
-import Store from '../client/store/store';
-
 
 export const onAuthChange = {
   // Magical
@@ -20,6 +18,7 @@ export const onAuthChange = {
     setTimeout(cb, 100);
   },
 };
+
 
 export default Routes = () => {
   return (
