@@ -21,3 +21,4 @@ accounts-base
 accounts-password
 aldeed:simple-schema
 react-meteor-data
+ostrio:files
