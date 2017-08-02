@@ -1,14 +1,18 @@
 {
-  "name": "ViPig",
+  "name": "vipig",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor",
+    "meteor": "MONGO_URL = 'mongodb://vipig:1@139.59.120.124:27017/cuckoo' meteor run"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "bcrypt": "^1.0.2",
-    "material-ui": "^0.17.3",
-    "meteor-node-stubs": "~0.2.4",
+    "browserify-fs": "^1.0.0",
+    "crypto-js": "^3.1.9-1",
+    "material-ui": "^1.0.0-beta.2",
+    "material-ui-icons": "^1.0.0-alpha.19",
+    "meteor-node-stubs": "^0.2.11",
     "react": "^15.5.4",
     "react-addons-pure-render-mixin": "^15.5.2",
     "react-dom": "^15.5.4",
@@ -35,5 +39,21 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-meteor": "^4.0.1",
     "eslint-plugin-react": "^6.10.3"
-  }
+  },
+  "description": "ViPig",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViPig/WebApp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ViPig/WebApp/issues"
+  },
+  "homepage": "https://github.com/ViPig/WebApp#readme"
 }

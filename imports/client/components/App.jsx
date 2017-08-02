@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
+import MenuIcon from 'material-ui-icons/Menu';
 
+import Routes, { onAuthChange } from '../../routes/routes';
 import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible';
 import { showLeftDrawer, hideLeftDrawer } from '../actions/setLeftDrawerVisible';
 
@@ -19,39 +18,12 @@ import Store from '../store/store';
 import LeftDrawer from './Drawer/LeftDrawerContainer';
 import HomeScreen from './Home';
 
-class Login extends Component {
-  static muiName = 'FlatButton';
-
-  render() {
-    return (
-      <FlatButton {...this.props} label="Login" />
-    );
-  }
-}
-
-const Logged = props => (
-  <IconMenu
-    {...props}
-    iconButtonElement={
-      <IconButton><MoreVertIcon /></IconButton>
-    }
-    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
-    anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
-  >
-    <MenuItem primaryText="Refresh" />
-    <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
-  </IconMenu>
-);
-
-Logged.muiName = 'IconMenu';
 
 /**
  * This example is taking advantage of the composability of the `AppBar`
  * to render different components depending on the application state.
  */
 class MainMenu extends Component {
-  static muiName = 'FlatButton';
   constructor(props) {
     super(props);
     this.state = {
@@ -76,28 +48,29 @@ class MainMenu extends Component {
     const { appState } = this.props;
     console.log('showModal', appState);
 
+
     return (
       <div>
         {/* <FlatButton label="Login" onTouchTap={() => this.setState({ open: true })} /> */}
-        <AppBar
-          className="appbar"
-          title="Home"
-          iconElementLeft={
-            <IconButton
-              onTouchTap={() => this.showLeftDrawer()}
-            >
-              <NavigationMenu />
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton color="contrast" aria-label="Menu" onTouchTap={() => this.showLeftDrawer()}>
+              <MenuIcon />
             </IconButton>
-          }
-          // iconElementRight={this.state.logged ? <Logged /> : <FlatButton label="Login" onTouchTap={() => this.showLoginModal()} />}
-        />
+            <Typography type="title" color="inherit">
+              Home
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
         {/* <LoginModal
           appState={appState}
         /> */}
         <LeftDrawer
           appState={appState}
         />
-        <HomeScreen />
+        <Routes />
+        {/* <HomeScreen /> */}
       </div>
     );
   }
@@ -124,4 +97,4 @@ MainMenu.propTypes = {
   appState: PropTypes.object,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainMenu);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainMenu));

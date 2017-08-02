@@ -32,3 +32,73 @@ body{
   display: flex;
   margin-top: 10px;
 }
+.full-width{
+  width: 60%;
+}
+.dropZone{
+    border-width: 2px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+    background-color: rgba(102, 102, 102);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.text-center{
+    text-align: center;
+}
+.align-end{
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    text-align: end;
+}
+.inlineDiv{
+    display: inline-block;
+}
+.box-detail{
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.score-paper{
+  float: right;
+  padding-top: 20px;
+}
+.score-detail{
+    height: 80px;
+    width: 80px;
+    line-height: 80px;
+    text-align: center;
+
+}
+.detail-info-paper{
+    height: 100%;
+    width: 100%;
+
+}
+.clear-both{
+    clear: both;
+}
+
+
+
+
+
+
+
+
+/*Responsive*/
+@media only screen and (max-width: 500px) {
+  .box-detail{
+    /*padding-top: 5px;*/
+  }
+  .score-paper{
+    float: none;
+    display: block !important;
+  }
+  .score-detail{
+      height: 40px;
+      width: 100%;
+      line-height: 40px;
+      text-align: center;
+      float: none;
+  }
+}

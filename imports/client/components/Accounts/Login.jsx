@@ -9,8 +9,8 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import Divider from 'material-ui/Divider';
-import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
-import RaisedButton from 'material-ui/RaisedButton';
+// import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
+import Button from 'material-ui/Button';
 
 import { onAuthChange } from '../../../routes/routes';
 import { login, logout } from '../../actions/setLoginState';
@@ -90,7 +90,7 @@ class renderLogin extends React.Component {
             <div>
               <Paper style={style} zDepth={5} rounded >
                 <Paper style={style_1} zDepth={1} >
-                  <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" />
+                  {/* <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" /> */}
                 </Paper>
                 <Divider />
                 <form onSubmit={handleSubmit(() => { this.showResults(); })} >
@@ -122,7 +122,8 @@ class renderLogin extends React.Component {
                           />
                         </Col>
                         <Col xs={12} sm={12} md={12} lg={12}>
-                          <RaisedButton
+                          <Button
+                            raised
                             type="submit"
                             label="Login"
                             labelPosition="before"

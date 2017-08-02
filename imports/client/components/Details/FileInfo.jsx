@@ -1,0 +1,285 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Grid, Row, Col } from 'react-flexbox-grid';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import Paper from 'material-ui/Paper';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import List, { ListItem, ListItemAvatar, ListItemText } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
+import AppBar from 'material-ui/AppBar';
+import Tabs, { Tab } from 'material-ui/Tabs';
+import { pink } from 'material-ui/colors';
+import { LinearProgress, CircularProgress } from 'material-ui/Progress';
+import green from 'material-ui/colors/green';
+import Button from 'material-ui/Button';
+import CheckIcon from 'material-ui-icons/Check';
+import SaveIcon from 'material-ui-icons/Save';
+import { Collapsible, CollapsibleItem } from 'react-materialize';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+
+import SignatureTable from './SignatureTable';
+
+const prettyBytes = require('pretty-bytes');
+
+const cardheader = {
+  // flex: 1,
+  // alignItems: 'center',
+  // textAlign: 'center',
+};
+
+const styleSheet = createStyleSheet('LetterAvatars', theme => ({
+  avatar: {
+    margin: 10,
+  },
+  orangeAvatar: {
+    color: pink[500],
+    backgroundColor: 'transparent',
+    overflow: 'initial',
+    fontSize: 14,
+
+  },
+  row: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  dense: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+  root: {
+    flexGrow: 1,
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    backgroundColor: theme.palette.background.paper,
+  },
+  linear: {
+    width: '100%',
+    marginTop: 30,
+  },
+  progress: {
+    color: green[500],
+    position: 'absolute',
+    top: -2,
+    left: 0,
+    right: 0,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  wrapper: {
+    position: 'relative',
+    textAlign: 'center',
+  },
+  successButton: {
+    backgroundColor: green[500],
+    '&:hover': {
+      backgroundColor: green[700],
+    },
+  },
+}));
+
+const LinearIndeterminate = props =>
+  <LinearProgress color="accent" />;
+
+const TabContainer = props =>
+  <div style={{ padding: 24 }}>
+    {props.children}
+  </div>;
+TabContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+function Signature(props) {
+  const signature = props.signature.signatures;
+  const loading = props.loading;
+  console.log(signature, 'signature');
+  if (!loading) {
+    const ListItems = signature.map(function(sign, index) {
+      return (
+        <CollapsibleItem header={sign.description} icon="filter_drama" key={index.toString()}>
+          <SignatureTable sign={sign} />
+        </CollapsibleItem>
+      );
+    });
+    return (<div>{ ListItems }</div>);
+  }
+  return (
+    <LinearIndeterminate />
+  );
+}
+
+class FileDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      index: 0,
+    };
+  }
+  handleChange = (event, index) => {
+    this.setState({ index });
+  };
+  render() {
+    const report = this.props.report;
+    const classes = this.props.classes;
+    const loading = this.props.loading;
+    console.log('propsloading', this.props);
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Tabs
+            index={this.state.index}
+            onChange={this.handleChange}
+            scrollable
+            scrollButtons="auto"
+          >
+            <Tab label="Signature" />
+            <Tab label="Item Two" />
+            <Tab label="Item Three" />
+            <Tab label="Item Four" />
+            <Tab label="Item Five" />
+            <Tab label="Item Six" />
+            <Tab label="Item Seven" />
+          </Tabs>
+        </AppBar>
+        {this.state.index === 0 &&
+          <TabContainer>
+            <Collapsible popout>
+              <Signature signature={report} loading={loading} />
+            </Collapsible>
+          </TabContainer>}
+        {this.state.index === 1 &&
+          <TabContainer>
+            {'Item Two'}
+          </TabContainer>}
+        {this.state.index === 2 &&
+          <TabContainer>
+            {'Item Three'}
+          </TabContainer>}
+        {this.state.index === 3 &&
+          <TabContainer>
+            {'Item Four'}
+          </TabContainer>}
+        {this.state.index === 4 &&
+          <TabContainer>
+            {'Item Five'}
+          </TabContainer>}
+        {this.state.index === 5 &&
+          <TabContainer>
+            {'Item Six'}
+          </TabContainer>}
+        {this.state.index === 6 &&
+          <TabContainer>
+            {'Item Seven'}
+          </TabContainer>}
+      </div>
+    );
+  }
+}
+
+class FileInfo extends Component {
+
+
+  render() {
+    const classes = this.props.classes;
+    const loading = this.props.loading;
+    const analysis = this.props.loading_a;
+
+    let status = '';
+    let file = '';
+    let score = '';
+    let report = {};
+
+    if (!loading) {
+      status = this.props.tasks[0].status;
+      file = this.props.tasks[0].file;
+    }
+    console.log(this.props);
+
+    if (!analysis) {
+      report = this.props.report[0];
+      score = this.props.report[0].info.score;
+    }
+
+    return (
+      <div>
+        {/* xx */}
+        {/* <h3>ID: {this.props.match.params.id}</h3> */}
+        <div style={{ padding: 20 }} />
+        <Grid fluid>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Paper elevation={4}>
+                <div className="box-detail">
+                  <div className="inlineDiv">
+                    {loading ? <LinearIndeterminate /> : <h4>{file.name}</h4>}
+                    {loading ? <LinearIndeterminate /> : <h6>{prettyBytes(file.size)}</h6>}
+                  </div>
+                  <div className="inlineDiv score-paper">
+                    <Paper className="score-detail" elevation={4} >{ analysis ? 'Loading' : score}</Paper>
+                  </div>
+                </div>
+                <div className="clear-both" />
+                <List>
+                  <ListItem dense classes={{ dense: classes.dense }}>
+                    <ListItemAvatar>
+                      <Avatar classes={{ colorDefault: classes.orangeAvatar }} >MD5</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={loading ? <LinearIndeterminate /> : file.md5} />
+                  </ListItem>
+                  <ListItem dense classes={{ dense: classes.dense }}>
+                    <ListItemAvatar>
+                      <Avatar classes={{ colorDefault: classes.orangeAvatar }}>SHA1</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={loading ? <LinearIndeterminate /> : file.sha1} />
+                  </ListItem>
+                  <ListItem dense classes={{ dense: classes.dense }}>
+                    <ListItemAvatar>
+                      <Avatar classes={{ colorDefault: classes.orangeAvatar }}>SHA256</Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={loading ? <LinearIndeterminate /> : file.sha256} />
+                  </ListItem>
+                </List>
+
+              </Paper>
+            </Col>
+          </Row>
+          <div style={{ padding: 20 }} />
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12} >
+              { status !== 'reported' ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
+            </Col>
+          </Row>
+        </Grid>
+      </div>
+
+    );
+  }
+}
+
+class CircularFab extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true,
+      success: true,
+    };
+  }
+
+  render() {
+    const classes = this.props.classes;
+    const { loading, success } = this.state;
+    let buttonClass = '';
+
+    if (success) {
+      buttonClass = classes.successButton;
+    }
+    return (
+      <div className={classes.wrapper}>
+        <Button fab color="primary" className={buttonClass} onClick={this.handleButtonClick}>
+          {success ? <CheckIcon /> : <SaveIcon />}
+        </Button>
+        {loading && <CircularProgress size={60} className={classes.progress} />}
+      </div>
+    );
+  }
+  }
+export default withStyles(styleSheet)(FileInfo);

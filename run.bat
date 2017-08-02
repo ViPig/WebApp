@@ -1,0 +1,2 @@
+SET MONGO_URL=mongodb://vipig:1@139.59.120.124:27017/cuckoo
+meteor

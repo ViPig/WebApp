@@ -5,7 +5,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import '../imports/startup/SimpleSchema';
 import Routes, { onAuthChange } from '../imports/routes/routes';
@@ -26,11 +26,11 @@ Tracker.autorun(() => {
 
 Meteor.startup(function () {
   render((
-    <Provider store={Store}>
-      <MuiThemeProvider>
-        <Routes />
-      </MuiThemeProvider>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={Store}>
+        <App />
+      </Provider>
+    </BrowserRouter>
 
     ), document.getElementById('render-target'));
 });
