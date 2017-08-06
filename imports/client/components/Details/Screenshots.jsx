@@ -50,14 +50,14 @@ class Screenshots extends Component {
     return (n);
   }
   handleImageClick = (image_id) => {
-    console.log('message', image_id);
+    //console.log('message', image_id);
 
     this.setState({ isOpen: true, photoIndex: image_id });
   }
   render() {
     const classes = this.props.classes;
     const screenshots = this.props.screenshots;
-    console.log(this.props.screenshots);
+    //console.log(this.props.screenshots);
     const task_id = this.props.task_id;
     const image_length = screenshots.length;
     const self = this;

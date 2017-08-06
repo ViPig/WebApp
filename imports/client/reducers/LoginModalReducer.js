@@ -8,7 +8,7 @@ const initialState = {
 function loginModal(state = initialState, action) {
   switch (action.type) {
     case SHOW_LOGIN_MODAL:
-    //   console.log('SHOW_LOGIN_MODAL');
+    //   //console.log('SHOW_LOGIN_MODAL');
       return Object.assign({}, state, {
         isShowing: action.isShowing,
       });

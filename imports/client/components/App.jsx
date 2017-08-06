@@ -41,12 +41,12 @@ class MainMenu extends Component {
       this.props.hideLeftDrawer();
     }
 
-    console.log('getState', Store.getState());
+    //console.log('getState', Store.getState());
   }
   render() {
-    console.log('this.props', this.props);
+    //console.log('this.props', this.props);
     const { appState } = this.props;
-    console.log('showModal', appState);
+    //console.log('showModal', appState);
 
 
     return (
@@ -77,7 +77,7 @@ class MainMenu extends Component {
 }
 
 function mapStateToProps(state) {
-  console.log('state', state);
+  //console.log('state', state);
   return {
     appState: state,
   };

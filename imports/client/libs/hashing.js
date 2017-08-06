@@ -15,8 +15,8 @@ export default Hasing = (files) => {
       hash.sha1 = SHA1(reader.result).toString();
       hash.sha256 = SHA256(reader.result).toString();
       hash.md5 = MD5(reader.result).toString();
-      // console.log('1 Checksum', hash1);
-      // console.log('MD5 Checksum', hash);
+      // //console.log('1 Checksum', hash1);
+      // //console.log('MD5 Checksum', hash);
     };
     return hash;
   }

@@ -8,7 +8,7 @@ const initialState = {
 function loginReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
-    //   console.log('SHOW_LOGIN_MODAL');
+    //   //console.log('SHOW_LOGIN_MODAL');
       return Object.assign({}, state, {
         Logged: true,
       });

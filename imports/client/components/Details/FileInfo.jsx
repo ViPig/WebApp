@@ -104,7 +104,7 @@ TabContainer.propTypes = {
 function Signature(props) {
   const signature = props.signature.signatures;
   const loading = props.loading;
-  console.log(signature, 'signature');
+  //console.log(signature, 'signature');
   if (!loading) {
     const ListItems = signature.map(function(sign, index) {
       return (
@@ -138,7 +138,7 @@ class FileDetail extends Component {
     const report = this.props.report;
     const classes = this.props.classes;
     const loading = this.props.loading;
-    console.log('propsloading', this.props);
+    //console.log('propsloading', this.props);
     if (!loading) {
       return (
         <div className={classes.root}>
@@ -220,7 +220,7 @@ class FileInfo extends Component {
       status = this.props.tasks[0].status;
       file = this.props.tasks[0].file;
     }
-    console.log(this.props);
+    //console.log(this.props);
 
     if (!loading && !analysis) {
       report = this.props.report[0];

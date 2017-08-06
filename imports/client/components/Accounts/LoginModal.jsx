@@ -13,7 +13,7 @@ class LoginModal extends React.Component {
     this.props.hideLoginModal();
   }
   render() {
-    console.log('this.props', this.props);
+    //console.log('this.props', this.props);
     const isShow = this.props;
     const actions = [
       <FlatButton

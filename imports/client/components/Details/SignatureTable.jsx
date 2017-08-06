@@ -20,11 +20,11 @@ export default class SignatureTable extends Component {
     ];
 
     const marks = this.props.sign.marks;
-    console.log(marks, 'marks');
-    console.log(marks.length);
+    //console.log(marks, 'marks');
+    //console.log(marks.length);
     let mark = 'none';
     if (marks.length === 0) {
-      console.log('herereeee');
+      //console.log('herereeee');
       mark = 'none';
     } else {
       mark = marks[0].type;

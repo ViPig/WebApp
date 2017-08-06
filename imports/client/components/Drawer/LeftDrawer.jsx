@@ -83,17 +83,17 @@ class DrawerUndocked extends React.Component {
     });
   }
   apitest = () => {
-    console.log('click_apitest');
+    //console.log('click_apitest');
 
     Meteor.call('asyncMethods', function(err, res) {
-      console.log(res, 'xxxxres');
+      //console.log(res, 'xxxxres');
     });
   }
   render() {
     const classes = this.props.classes;
 
     const isShow = this.props;
-    console.log('message', isShow);
+    //console.log('message', isShow);
     return (
       <div className={styles.body}>
         <Drawer
