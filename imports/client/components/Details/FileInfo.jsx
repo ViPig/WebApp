@@ -16,8 +16,15 @@ import CheckIcon from 'material-ui-icons/Check';
 import SaveIcon from 'material-ui-icons/Save';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import Badge from 'material-ui/Badge';
+
 
 import SignatureTable from './SignatureTable';
+import StaticAnalysis from './Static';
+import VirusTotal from './VirusTotal';
+import Behavior from './Behavior';
+import Screenshots from './Screenshots';
+import Video from './Video';
 
 const prettyBytes = require('pretty-bytes');
 
@@ -75,6 +82,12 @@ const styleSheet = createStyleSheet('LetterAvatars', theme => ({
       backgroundColor: green[700],
     },
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
+  badge: {
+    right: -20,
+  },
 }));
 
 const LinearIndeterminate = props =>
@@ -112,65 +125,80 @@ class FileDetail extends Component {
     super(props);
     this.state = {
       index: 0,
+      status: 'static',
     };
   }
   handleChange = (event, index) => {
     this.setState({ index });
   };
+  handleStaticClick = state => () => {
+    this.setState(state);
+  }
   render() {
     const report = this.props.report;
     const classes = this.props.classes;
     const loading = this.props.loading;
     console.log('propsloading', this.props);
+    if (!loading) {
+      return (
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Tabs
+              index={this.state.index}
+              onChange={this.handleChange}
+              scrollable
+              scrollButtons="auto"
+            >
+              <Tab label="Signature" />
+              <Tab label="Static Analysis" />
+              <Tab label={report.virustotal ? <Badge classes={{ badge: classes.badge }} badgeContent={report.virustotal.positives ? report.virustotal.positives : 0} color="accent" >VirusTotal</Badge> : 'VirusTotal'} />
+              <Tab label="Behavior" />
+              <Tab label="Screenshots" />
+              <Tab label="Video" />
+              <Tab label="Item Seven" />
+            </Tabs>
+          </AppBar>
+          {this.state.index === 0 &&
+            <TabContainer>
+              <Collapsible popout>
+                <Signature signature={report} loading={loading} />
+              </Collapsible>
+            </TabContainer>}
+          {this.state.index === 1 &&
+            <TabContainer>
+              <Button raised className={classes.button} onClick={this.handleStaticClick({ status: 'static' })}>
+                Static
+              </Button>
+              <Button raised className={classes.button} onClick={this.handleStaticClick({ status: 'strings' })}>
+                Strings
+              </Button>
+              <StaticAnalysis status={this.state.status} static={report} />
+            </TabContainer>}
+          {this.state.index === 2 &&
+            <TabContainer>
+              <VirusTotal virustotal={report} />
+            </TabContainer>}
+          {this.state.index === 3 &&
+            <TabContainer>
+              <Behavior behavior={report.behavior} />
+            </TabContainer>}
+          {this.state.index === 4 &&
+            <TabContainer>
+              <Screenshots screenshots={report.screenshots} task_id={report.info.id} />
+            </TabContainer>}
+          {this.state.index === 5 &&
+            <TabContainer>
+              <Video task_id={report.info.id} />
+            </TabContainer>}
+          {this.state.index === 6 &&
+            <TabContainer>
+              {'Item Seven'}
+            </TabContainer>}
+        </div>
+      );
+    }
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Tabs
-            index={this.state.index}
-            onChange={this.handleChange}
-            scrollable
-            scrollButtons="auto"
-          >
-            <Tab label="Signature" />
-            <Tab label="Item Two" />
-            <Tab label="Item Three" />
-            <Tab label="Item Four" />
-            <Tab label="Item Five" />
-            <Tab label="Item Six" />
-            <Tab label="Item Seven" />
-          </Tabs>
-        </AppBar>
-        {this.state.index === 0 &&
-          <TabContainer>
-            <Collapsible popout>
-              <Signature signature={report} loading={loading} />
-            </Collapsible>
-          </TabContainer>}
-        {this.state.index === 1 &&
-          <TabContainer>
-            {'Item Two'}
-          </TabContainer>}
-        {this.state.index === 2 &&
-          <TabContainer>
-            {'Item Three'}
-          </TabContainer>}
-        {this.state.index === 3 &&
-          <TabContainer>
-            {'Item Four'}
-          </TabContainer>}
-        {this.state.index === 4 &&
-          <TabContainer>
-            {'Item Five'}
-          </TabContainer>}
-        {this.state.index === 5 &&
-          <TabContainer>
-            {'Item Six'}
-          </TabContainer>}
-        {this.state.index === 6 &&
-          <TabContainer>
-            {'Item Seven'}
-          </TabContainer>}
-      </div>
+      <LinearIndeterminate />
     );
   }
 }
@@ -194,7 +222,7 @@ class FileInfo extends Component {
     }
     console.log(this.props);
 
-    if (!analysis) {
+    if (!loading && !analysis) {
       report = this.props.report[0];
       score = this.props.report[0].info.score;
     }
@@ -245,7 +273,7 @@ class FileInfo extends Component {
           <div style={{ padding: 20 }} />
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} >
-              { status !== 'reported' ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
+              {status !== 'reported' ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
             </Col>
           </Row>
         </Grid>

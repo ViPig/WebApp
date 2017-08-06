@@ -11,7 +11,17 @@ import { Redirect } from 'react-router-dom';
 import Files from '../../../../lib/FileCollection';
 import { hideProcessModal, uploadProcessModal } from '../../actions/showProcessingModal';
 
+const CryptoJS = require('crypto-js');
 const SHA256 = require('crypto-js/sha256');
+
+arrayBufferToWordArray = (ab) => {
+  const i8a = new Uint8Array(ab);
+  const a = [];
+  for (let i = 0; i < i8a.length; i += 4) {
+    a.push(i8a[i] << 24 | i8a[i + 1] << 16 | i8a[i + 2] << 8 | i8a[i + 3]);
+  }
+  return CryptoJS.lib.WordArray.create(a, i8a.length);
+};
 
 class DialogProcess extends React.Component {
   constructor(props) {
@@ -31,23 +41,24 @@ class DialogProcess extends React.Component {
     const hash = [];
     const data = files[0];
     const self = this;
-    if (data === undefined) { return; }
-    reader.readAsBinaryString(files[0]);
+    console.log(data);
+    reader.readAsArrayBuffer(files[0]);
     reader.onloadend = function () {
-      hash.sha256 = SHA256(reader.result).toString();
+      hash.sha256 = SHA256(arrayBufferToWordArray(reader.result)).toString();
       console.log('Checksum', hash);
-      console.log(self.props);
+      console.log(self);
       Meteor.call('CheckCuckooFileExists', hash.sha256, function(err, res) {
         console.log('res', res);
-        if (res && res.response.statusCode === 404) {
+        if (res.response && res.response.statusCode === 404) {
           self.props.uploadProcessModal(true, 'Đang tải dữ liệu lên server...', false);
           self.setState({
             mode: 'determinate',
             progress: 0,
           });
           self.uploadIt(files);
-        } else if (res && res.response.statusCode === 200) {
-          self.props.getExistsFile(res.response.id);
+        } else if (res && res.statusCode === 200) {
+          console.log(res.data.sample.id);
+          self.getExistsFile(res.data.sample.id);
         }
       });
     };
@@ -59,7 +70,13 @@ class DialogProcess extends React.Component {
       this.uploadIt(this.props.processModal.file);
     }
   }
-  getExistsFile = () => {}
+  getExistsFile = (id) => {
+    if (id) {
+      this.setState({
+        task_id: id,
+      });
+    }
+  }
   pushFile = (file) => {
     const self = this;
     Meteor.call('pushFileToCuckoo', file, function(err, res) {

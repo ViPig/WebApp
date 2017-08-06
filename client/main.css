@@ -78,7 +78,10 @@ body{
     clear: both;
 }
 
-
+button:focus {
+    outline: none;
+    background-color: transparent !important;
+}
 
 
 

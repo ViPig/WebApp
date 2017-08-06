@@ -28,6 +28,7 @@ const dropBoxStyle = {
   width: '80%',
   textAlign: 'center',
 };
+
 class DropBox extends React.Component {
   constructor(props) {
     super(props);
@@ -74,6 +75,8 @@ class DropBox extends React.Component {
       this.props.hideProcessModal();
     }
   }
+
+
   render() {
     const { accept, files, dropzoneActive } = this.state;
     const { dropbox } = this.props;
@@ -120,11 +123,6 @@ class DropBox extends React.Component {
                 Duyệt
               </Button>
             </div>
-            <ul>
-              {
-                files.map((f, index) => <li key={index}>{f.name} - {f.size} bytes</li>)
-              }
-            </ul>
           </div>
         </Dropzone>
         <DialogProcess processModal={dropbox} />
