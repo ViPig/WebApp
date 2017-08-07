@@ -9,7 +9,7 @@ export default createContainer(({ match }) => {
   const subscription = Meteor.subscribe('tasks.public', match.params.id);
   const analysis = Meteor.subscribe('analysis.public', match.params.id);
   const loading = !subscription.ready();
-  const loading_a = !analysis.ready();
+  let loading_a = !analysis.ready();
 
   let tasks = {};
   let report = {};
@@ -18,6 +18,7 @@ export default createContainer(({ match }) => {
   }
   if (!loading_a) {
     report = Analysis.find().fetch();
+    if (report.length) { loading_a = true; }
   }
   return { loading, tasks, loading_a, report };
 }, FileInfo);

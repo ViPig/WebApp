@@ -104,7 +104,7 @@ TabContainer.propTypes = {
 function Signature(props) {
   const signature = props.signature.signatures;
   const loading = props.loading;
-  //console.log(signature, 'signature');
+  // console.log(signature, 'signature');
   if (!loading) {
     const ListItems = signature.map(function(sign, index) {
       return (
@@ -138,7 +138,7 @@ class FileDetail extends Component {
     const report = this.props.report;
     const classes = this.props.classes;
     const loading = this.props.loading;
-    //console.log('propsloading', this.props);
+    // console.log('propsloading', this.props);
     if (!loading) {
       return (
         <div className={classes.root}>
@@ -220,11 +220,11 @@ class FileInfo extends Component {
       status = this.props.tasks[0].status;
       file = this.props.tasks[0].file;
     }
-    //console.log(this.props);
+    // console.log(this.props);
 
     if (!loading && !analysis) {
       report = this.props.report[0];
-      score = this.props.report[0].info.score;
+      score = this.props.report[0];
     }
 
     return (
@@ -242,7 +242,7 @@ class FileInfo extends Component {
                     {loading ? <LinearIndeterminate /> : <h6>{prettyBytes(file.size)}</h6>}
                   </div>
                   <div className="inlineDiv score-paper">
-                    <Paper className="score-detail" elevation={4} >{ analysis ? 'Loading' : score}</Paper>
+                    <Paper className="score-detail" elevation={4} >{ analysis ? 'Loading' : score.info.score}</Paper>
                   </div>
                 </div>
                 <div className="clear-both" />
