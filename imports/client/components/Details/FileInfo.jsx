@@ -151,7 +151,8 @@ class FileDetail extends Component {
             >
               <Tab label="Signature" />
               <Tab label="Static Analysis" />
-              <Tab label={report.virustotal ? <Badge classes={{ badge: classes.badge }} badgeContent={report.virustotal.positives ? report.virustotal.positives : 0} color="accent" >VirusTotal</Badge> : 'VirusTotal'} />
+              <Tab label="Virustotal" />
+              {/* <Tab label={report.virustotal ? <Badge classes={{ badge: classes.badge }} badgeContent={report.virustotal.positives ? report.virustotal.positives : 0} color="accent" >VirusTotal</Badge> : 'VirusTotal'} /> */}
               <Tab label="Behavior" />
               <Tab label="Screenshots" />
               <Tab label="Video" />
@@ -210,22 +211,24 @@ class FileInfo extends Component {
     const classes = this.props.classes;
     const loading = this.props.loading;
     const analysis = this.props.loading_a;
-
     let status = '';
     let file = '';
-    let score = '';
+    const score = '';
     let report = {};
-
+    let showCircle = true;
+    if (this.props.report.length > 0) {
+      showCircle = false;
+    }
     if (!loading) {
       status = this.props.tasks[0].status;
       file = this.props.tasks[0].file;
     }
-    // console.log(this.props);
 
     if (!loading && !analysis) {
       report = this.props.report[0];
-      score = this.props.report[0];
     }
+    console.log(this.props);
+    console.log(showCircle);
 
     return (
       <div>
@@ -240,9 +243,6 @@ class FileInfo extends Component {
                   <div className="inlineDiv">
                     {loading ? <LinearIndeterminate /> : <h4>{file.name}</h4>}
                     {loading ? <LinearIndeterminate /> : <h6>{prettyBytes(file.size)}</h6>}
-                  </div>
-                  <div className="inlineDiv score-paper">
-                    <Paper className="score-detail" elevation={4} >{ analysis ? 'Loading' : score.info.score}</Paper>
                   </div>
                 </div>
                 <div className="clear-both" />
@@ -273,7 +273,7 @@ class FileInfo extends Component {
           <div style={{ padding: 20 }} />
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} >
-              {status !== 'reported' ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
+              {showCircle ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
             </Col>
           </Row>
         </Grid>
