@@ -210,6 +210,7 @@ class FileInfo extends Component {
     const classes = this.props.classes;
     const loading = this.props.loading;
     const analysis = this.props.loading_a;
+    const dataReady = this.props.dataready;
 
     let status = '';
     let file = '';
@@ -242,7 +243,7 @@ class FileInfo extends Component {
                     {loading ? <LinearIndeterminate /> : <h6>{prettyBytes(file.size)}</h6>}
                   </div>
                   <div className="inlineDiv score-paper">
-                    <Paper className="score-detail" elevation={4} >{ analysis ? 'Loading' : score}</Paper>
+                    <Paper className="score-detail" elevation={4} >{ dataReady ? 'Loading' : score}</Paper>
                   </div>
                 </div>
                 <div className="clear-both" />
@@ -273,7 +274,7 @@ class FileInfo extends Component {
           <div style={{ padding: 20 }} />
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} >
-              {status !== 'reported' ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
+              {report.length && status !== 'reported' ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
             </Col>
           </Row>
         </Grid>
