@@ -50,14 +50,14 @@ class Screenshots extends Component {
     return (n);
   }
   handleImageClick = (image_id) => {
-    //console.log('message', image_id);
+    // console.log('message', image_id);
 
     this.setState({ isOpen: true, photoIndex: image_id });
   }
   render() {
     const classes = this.props.classes;
     const screenshots = this.props.screenshots;
-    //console.log(this.props.screenshots);
+    // console.log(this.props.screenshots);
     const task_id = this.props.task_id;
     const image_length = screenshots.length;
     const self = this;
@@ -70,7 +70,7 @@ class Screenshots extends Component {
             const image_id = this.createNumber(index + 1);
             return (
               <GridListTile key={image_id.toString()} onTouchTap={() => this.handleImageClick(image_id)}>
-                <img src={`http://10.20.17.4:1337/tasks/screenshots/${task_id}/${image_id}`} alt={image_id.toString()} />
+                <img src={`${SCREENSHOTS}/${task_id}/${image_id}`} alt={image_id.toString()} />
                 <GridListTileBar
                   title={`Image: ${image_id.toString()}`}
                 />
@@ -81,9 +81,9 @@ class Screenshots extends Component {
         </GridList>
         {isOpen &&
           <Lightbox
-            mainSrc={`http://10.20.17.4:1337/tasks/screenshots/${task_id}/${photoIndex}`}
-            nextSrc={`http://10.20.17.4:1337/tasks/screenshots/${task_id}/${this.createNumber((Number(photoIndex) + 1) % image_length)}`}
-            prevSrc={`http://10.20.17.4:1337/tasks/screenshots/${task_id}/${this.createNumber((Number(photoIndex) - 1) % image_length)}`}
+            mainSrc={`${SCREENSHOTS}${task_id}/${photoIndex}`}
+            nextSrc={`${SCREENSHOTS}${task_id}/${this.createNumber((Number(photoIndex) + 1) % image_length)}`}
+            prevSrc={`${SCREENSHOTS}${task_id}/${this.createNumber((Number(photoIndex) - 1) % image_length)}`}
 
             onCloseRequest={() => this.setState({ isOpen: false })}
             onMovePrevRequest={() => this.setState({
