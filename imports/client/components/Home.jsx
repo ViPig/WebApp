@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Divider from 'material-ui/Divider';
 import DropBox from './DropBox';
+import HomeChip from './About/HomeChip';
 
 const cardheader = {
   flex: 1,
@@ -25,6 +26,10 @@ class HomeScreen extends Component {
             alignItems: 'center',
           }}
         >
+          <Col className="full-width">
+            <HomeChip />
+          </Col>
+          <div style={{ padding: 10 }} />
           <Col className="full-width" >
             <DropBox />
           </Col>

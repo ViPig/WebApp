@@ -270,7 +270,7 @@ class FileInfo extends Component {
               </Paper>
             </Col>
           </Row>
-          <div style={{ padding: 20 }} />
+          <div style={{ padding: 10 }} />
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} >
               {showCircle ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }

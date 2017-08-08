@@ -1,6 +1,16 @@
 body{
-   margin: 0px;
-
+    margin: 0px;
+    background: url(https://lh3.googleusercontent.com/0zoOXViblxanBV_Q7Np4A-kuwtWUpzcGIA5Rm2x8VGiogevQkGFhqI8Kv34hh03xPhRBV3dO-DpN5Ao=w1920-h1080-no);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+.MuiAppBar-colorPrimary-6{
+    background-color: #5D4037 !important;
+}
+.dropZone {
+    background-color: rgba(67, 74, 115, 0.5) !important;
 }
 .appbar{
   background-color: rgb(38, 50, 56) !important;
@@ -33,7 +43,7 @@ body{
   margin-top: 10px;
 }
 .full-width{
-  width: 60%;
+  width: 80%;
 }
 .dropZone{
     border-width: 2px;
