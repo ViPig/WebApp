@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } fr
 import App from '../client/components/App';
 import FileInfo from '../client/components/Details/FileInfoContainer';
 import HomeScreen from '../client/components/Home';
+import Login from '../client/components/Accounts/Login';
+import SignUp from '../client/components/Accounts/SignUp';
 
 export const onAuthChange = {
   // Magical

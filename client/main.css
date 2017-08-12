@@ -22,7 +22,6 @@ body{
   display: flex;
   /*align-items: center;*/
   justify-content: center;
-  background-color: #CFD8DC;
 }
 
 .login_page_paper {
@@ -97,8 +96,9 @@ a {
   color: inherit !important;
 }
 
-
-
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
 
 
 /*Responsive*/

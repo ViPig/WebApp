@@ -25,3 +25,5 @@ ostrio:files
 http@1.2.12
 dynamic-import
 promise
+universe:i18n
+ostrio:cookies

@@ -7,7 +7,8 @@ import { Accounts } from 'meteor/accounts-base';
 
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
+import Input from 'material-ui/Input/Input';
+import InputLabel from 'material-ui/Input/InputLabel';
 import Divider from 'material-ui/Divider';
 // import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Button from 'material-ui/Button';
@@ -28,19 +29,13 @@ const largeIcon = {
   display: 'flex',
   // alignItems: 'center',
 };
-const loginButton = {
-  display: 'flex',
-  // width: 250,
-};
 const textFieldColor = {
   color: '#212121',
   borderColor: '#212121',
 };
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
+  <Input
     {...input}
     {...custom}
   />
@@ -76,8 +71,8 @@ const PaperExampleRounded = (props) => {
       <div data-reactroot>
         <div className="login_page_paper">
           <div>
-            <Paper style={style} zDepth={5} rounded >
-              <Paper style={style_1} zDepth={1} >
+            <Paper style={style}>
+              <Paper style={style_1} >
                 {/* <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" /> */}
               </Paper>
               <Divider />
@@ -86,76 +81,72 @@ const PaperExampleRounded = (props) => {
                   <Grid fluid>
                     <Row>
                       <Col xs={12} sm={12} md={6} lg={6}>
+                        <InputLabel htmlFor="first_name">Name</InputLabel>
                         <Field
                           type="text"
+                          id="first_name"
                           name="first_name"
                           style={{ width: '100%' }}
                           component={renderTextField}
-                          hintText="What is your First Name ?"
-                          label="First Name"
-                          underlineFocusStyle={textFieldColor}
-                          floatingLabelFocusStyle={textFieldColor}
+                          disableUnderline
                         />
                       </Col>
                       <Col xs={12} sm={12} md={6} lg={6}>
+                        <InputLabel htmlFor="last_name">Name</InputLabel>
                         <Field
                           type="text"
                           name="last_name"
+                          id="last_name"
                           style={{ width: '100%' }}
                           component={renderTextField}
-                          hintText="What is your Last Name ?"
                           label="Last Name"
-                          underlineFocusStyle={textFieldColor}
-                          floatingLabelFocusStyle={textFieldColor}
+                          disableUnderline
                         />
                       </Col>
                       <Col xs={12} sm={12} md={12} lg={12}>
+                        <InputLabel htmlFor="email">Name</InputLabel>
                         <Field
                           type="email"
                           name="email"
+                          id="email"
                           fullWidth
                           component={renderTextField}
-                          hintText="Enter your email"
                           label="Email"
-                          underlineFocusStyle={textFieldColor}
-                          floatingLabelFocusStyle={textFieldColor}
+                          disableUnderline
                         />
                       </Col>
                       <Col xs={12} sm={12} md={12} lg={12}>
+                        <InputLabel htmlFor="password">Name</InputLabel>
                         <Field
                           name="password"
+                          id="password"
                           type="password"
                           fullWidth
                           component={renderTextField}
-                          hintText="Enter your password"
                           label="Password"
-                          underlineFocusStyle={textFieldColor}
-                          floatingLabelFocusStyle={textFieldColor}
+                          disableUnderline
                         />
                       </Col>
                       <Col xs={12} sm={12} md={12} lg={12}>
+                        <InputLabel htmlFor="password_confirm">Name</InputLabel>
                         <Field
                           name="password_confirm"
+                          id="password_confirm"
                           type="password"
                           fullWidth
                           component={renderTextField}
-                          hintText="Re-enter your password"
                           label="Confirm Password"
-                          underlineFocusStyle={textFieldColor}
-                          floatingLabelFocusStyle={textFieldColor}
+                          disableUnderline
                         />
                       </Col>
-                      <Col xs={12} sm={12} md={12} lg={12}>
+                      <Col xs={12} sm={12} md={12} lg={12} className="text-center">
                         <Button
                           raised
                           type="submit"
-                          label="Sign Up"
-                          labelPosition="before"
-                          primary
                           disabled={pristine || submitting}
-                          style={loginButton}
-                          buttonStyle={{ backgroundColor: '#263238' }}
-                        />
+                        >
+                          Signup
+                        </Button>
                       </Col>
                       <Col xs={12} sm={12} md={12} lg={12}>
                         <div className="login_page_register">

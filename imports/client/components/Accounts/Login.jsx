@@ -4,16 +4,29 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-
+import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
+import Input from 'material-ui/Input/Input';
 import Divider from 'material-ui/Divider';
 // import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Button from 'material-ui/Button';
 
 import { onAuthChange } from '../../../routes/routes';
 import { login, logout } from '../../actions/setLoginState';
+
+const styleSheet = createStyleSheet(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    borderBottom: 'none !important',
+    margin: 'none !important',
+    backgroundColor: 'transparent !important',
+  },
+}));
+
 
 const style = {
   height: 300,
@@ -31,18 +44,13 @@ const largeIcon = {
   display: 'flex',
   // alignItems: 'center',
 };
-const loginButton = {
-  display: 'flex',
-};
 const textFieldColor = {
   color: '#212121',
   borderColor: '#212121',
 };
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    floatingLabelText={label}
-    errorText={touched && error}
+  <Input
     {...input}
     {...custom}
   />
@@ -58,12 +66,13 @@ class renderLogin extends React.Component {
   }
   async showResults() {
     await sleep(500);
-    //console.log('showResults', this.props);
+    // console.log('showResults', this.props);
     const formValues = this.props.state.form.LoginForm.values;
     const email = formValues.email;
     const password = formValues.password;
 
     Meteor.loginWithPassword({ email }, password, (err) => {
+      console.log(email, password);
       if (err) {
         window.alert(JSON.stringify(err, null, 2));
       } else {
@@ -75,21 +84,21 @@ class renderLogin extends React.Component {
   render () {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     const { state } = this.props;
-
+    const classes = this.props.classes;
     if (state.loginReducer.Logged) {
       return (
         <Redirect to="/Home" />
       );
     }
 
-    //console.log('LoginState', Meteor.userId());
+    // console.log('LoginState', Meteor.userId());
     return (
       <div className="login_page">
         <div data-reactroot>
           <div className="login_page_paper">
             <div>
-              <Paper style={style} zDepth={5} rounded >
-                <Paper style={style_1} zDepth={1} >
+              <Paper style={style} >
+                <Paper style={style_1} >
                   {/* <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" /> */}
                 </Paper>
                 <Divider />
@@ -103,10 +112,9 @@ class renderLogin extends React.Component {
                             name="email"
                             fullWidth
                             component={renderTextField}
-                            hintText="Enter your e-mail"
                             label="Email"
-                            underlineFocusStyle={textFieldColor}
-                            floatingLabelFocusStyle={textFieldColor}
+                            className={classes.textField}
+                            disableUnderline
                           />
                         </Col>
                         <Col xs={12} sm={12} md={12} lg={12}>
@@ -114,25 +122,20 @@ class renderLogin extends React.Component {
                             name="password"
                             fullWidth
                             component={renderTextField}
-                            hintText="Enter your password"
                             label="Password"
                             type="password"
-                            underlineFocusStyle={textFieldColor}
-                            floatingLabelFocusStyle={textFieldColor}
+                            className={classes.textField}
+                            disableUnderline
                           />
                         </Col>
-                        <Col xs={12} sm={12} md={12} lg={12}>
+                        <Col xs={12} sm={12} md={12} lg={12} className="text-center">
                           <Button
                             raised
                             type="submit"
-                            label="Login"
-                            labelPosition="before"
-                            primary
                             disabled={pristine || submitting}
-                            style={loginButton}
-                            buttonStyle={{ backgroundColor: '#263238' }}
-
-                          />
+                          >
+                            Login
+                          </Button>
                         </Col>
                         <Col xs={12} sm={12} md={12} lg={12}>
                           <div className="login_page_register">
@@ -153,7 +156,7 @@ class renderLogin extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  //console.log('state', state);
+  // console.log('state', state);
   return {
     state,
   };
@@ -174,4 +177,4 @@ renderLogin.propTypes = {
 InitializeFromStateForm = reduxForm({
   form: 'LoginForm',
 })(renderLogin);
-export default connect(mapStateToProps, mapDispatchToProps)(InitializeFromStateForm);
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(InitializeFromStateForm));

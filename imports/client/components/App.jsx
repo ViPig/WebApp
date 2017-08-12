@@ -12,6 +12,11 @@ import MenuIcon from 'material-ui-icons/Menu';
 import CloseIcon from 'material-ui-icons/Close';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 import FaGithub from 'react-icons/lib/fa/github';
+import Avatar from 'material-ui/Avatar';
+import Menu, { MenuItem } from 'material-ui/Menu';
+import { Cookies } from 'meteor/ostrio:cookies';
+import i18n from 'meteor/universe:i18n';
+
 import Routes, { onAuthChange } from '../../routes/routes';
 import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible';
 import { showLeftDrawer, hideLeftDrawer } from '../actions/setLeftDrawerVisible';
@@ -21,6 +26,13 @@ import Store from '../store/store';
 import LeftDrawer from './Drawer/LeftDrawerContainer';
 import HomeScreen from './Home';
 
+const cookies = new Cookies();
+
+function getLang() {
+  return cookies.get('locale') ? cookies.get('locale') : 'vi';
+}
+i18n.setLocale(getLang());
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet({
   root: {
@@ -31,8 +43,12 @@ const styleSheet = createStyleSheet({
     flex: 1,
   },
   github: {
-    fontSize: 36,
+    fontSize: 32,
     color: '#ffffff',
+  },
+  avatar: {
+    width: 32,
+    height: 32,
   },
 });
 
@@ -40,7 +56,8 @@ class MainMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      anchorEl: undefined,
+      open: false,
     };
   }
 
@@ -56,11 +73,23 @@ class MainMenu extends Component {
 
     // console.log('getState', Store.getState());
   }
+  handleLocal = (event) => {
+    this.setState({ open: true, anchorEl: event.currentTarget });
+  };
+
+  handleSetLocal = (locale) => {
+    this.setState({ open: false });
+    if (locale !== '') {
+      cookies.set('locale', locale);
+      i18n.setLocale(getLang());
+    }
+  };
+
   render() {
     // console.log('this.props', this.props);
     const { appState } = this.props;
-    // console.log('showModal', appState);
     const classes = this.props.classes;
+
     return (
       <div>
         {/* <FlatButton label="Login" onTouchTap={() => this.setState({ open: true })} /> */}
@@ -70,11 +99,30 @@ class MainMenu extends Component {
               {appState.leftDrawer.showLD ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
-              <Link to="/">Home</Link>
+              <Link to="/"><T>sign_in</T></Link>
             </Typography>
             <IconButton aria-label="Go to Github" className={classes.github} href="https://github.com/ViPig" target="_blank">
               <FaGithub />
             </IconButton>
+            <IconButton
+              color="accent"
+              aria-label="Language"
+              onClick={this.handleLocal}
+              aria-owns={this.state.open ? 'simple-menu' : null}
+              aria-haspopup="true"
+            >
+              {cookies.get('locale') === 'vi' ? <Avatar alt="Tiếng Việt" src="./images/flags/vietnam.png" className={classes.avatar} /> : <Avatar alt="English" src="./images/flags/united-states.png" className={classes.avatar} />}
+
+            </IconButton>
+            <Menu
+              id="simple-menu"
+              anchorEl={this.state.anchorEl}
+              open={this.state.open}
+              onRequestClose={() => this.handleSetLocal()}
+            >
+              <MenuItem onClick={() => this.handleSetLocal('vi')}><Avatar alt="Remy Sharp" src="./images/flags/vietnam.png" className={classes.avatar} /> Tiếng Việt</MenuItem>
+              <MenuItem onClick={() => this.handleSetLocal('en')}><Avatar alt="Remy Sharp" src="./images/flags/united-states.png" className={classes.avatar} /> English</MenuItem>
+            </Menu>
           </Toolbar>
         </AppBar>
 
