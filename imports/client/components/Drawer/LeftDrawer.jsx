@@ -7,7 +7,7 @@ import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
-import InboxIcon from 'material-ui-icons/Inbox';
+import Computer from 'material-ui-icons/Computer';
 import DraftsIcon from 'material-ui-icons/Drafts';
 import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
@@ -18,7 +18,6 @@ import Avatar from 'material-ui/Avatar';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
 
 import { hideLeftDrawer } from '../../actions/setLeftDrawerVisible';
-import { logout } from '../../actions/setLoginState';
 import { onAuthChange } from '../../../routes/routes';
 
 const styles = {
@@ -83,17 +82,17 @@ class DrawerUndocked extends React.Component {
     });
   }
   apitest = () => {
-    //console.log('click_apitest');
+    // console.log('click_apitest');
 
     Meteor.call('asyncMethods', function(err, res) {
-      //console.log(res, 'xxxxres');
+      // console.log(res, 'xxxxres');
     });
   }
   render() {
     const classes = this.props.classes;
 
     const isShow = this.props;
-    //console.log('message', isShow);
+    // console.log('message', isShow);
     return (
       <div className={styles.body}>
         <Drawer
@@ -111,15 +110,15 @@ class DrawerUndocked extends React.Component {
               <div>
                 <ListItem button>
                   <ListItemIcon>
-                    <InboxIcon />
+                    <Computer />
                   </ListItemIcon>
-                  <ListItemText primary="Inbox" />
+                  <ListItemText primary="Trạng Thái Máy Chủ" />
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>
                     <StarIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Starred" />
+                  <ListItemText primary="Thống Kê Truy Cập" />
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>

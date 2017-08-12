@@ -3,8 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 
 import App from '../client/components/App';
-import Login from '../client/components/Accounts/Login';
-import SignUp from '../client/components/Accounts/SignUp';
 import FileInfo from '../client/components/Details/FileInfoContainer';
 import HomeScreen from '../client/components/Home';
 

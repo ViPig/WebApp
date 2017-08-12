@@ -25,6 +25,7 @@ import VirusTotal from './VirusTotal';
 import Behavior from './Behavior';
 import Screenshots from './Screenshots';
 import Video from './Video';
+import Network from './Network';
 
 const prettyBytes = require('pretty-bytes');
 
@@ -142,7 +143,7 @@ class FileDetail extends Component {
     if (!loading) {
       return (
         <div className={classes.root}>
-          <AppBar position="static">
+          <AppBar position="static" className="appbar-background">
             <Tabs
               index={this.state.index}
               onChange={this.handleChange}
@@ -156,7 +157,7 @@ class FileDetail extends Component {
               <Tab label="Behavior" />
               <Tab label="Screenshots" />
               <Tab label="Video" />
-              <Tab label="Item Seven" />
+              <Tab label="Network" />
             </Tabs>
           </AppBar>
           {this.state.index === 0 &&
@@ -193,7 +194,7 @@ class FileDetail extends Component {
             </TabContainer>}
           {this.state.index === 6 &&
             <TabContainer>
-              {'Item Seven'}
+              <Network network={this.props.network} />
             </TabContainer>}
         </div>
       );
@@ -216,19 +217,18 @@ class FileInfo extends Component {
     const score = '';
     let report = {};
     let showCircle = true;
-    if (this.props.report.length > 0) {
+    let network;
+    if (this.props.report.length > 0 && this.props.network.length > 0) {
+	  network = this.props.network[0];
       showCircle = false;
     }
     if (!loading) {
       status = this.props.tasks[0].status;
       file = this.props.tasks[0].file;
     }
-
     if (!loading && !analysis) {
       report = this.props.report[0];
     }
-    console.log(this.props);
-    console.log(showCircle);
 
     return (
       <div>
@@ -273,7 +273,7 @@ class FileInfo extends Component {
           <div style={{ padding: 10 }} />
           <Row>
             <Col xs={12} sm={12} md={12} lg={12} >
-              {showCircle ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} /> }
+              {showCircle ? <CircularFab classes={classes} /> : <FileDetail classes={classes} report={report} loading={analysis} network={network} /> }
             </Col>
           </Row>
         </Grid>

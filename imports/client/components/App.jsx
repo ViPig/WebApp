@@ -5,10 +5,13 @@ import AppBar from 'material-ui/AppBar';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import Icon from 'material-ui/Icon';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
-
+import CloseIcon from 'material-ui-icons/Close';
+import { withStyles, createStyleSheet } from 'material-ui/styles';
+import FaGithub from 'react-icons/lib/fa/github';
 import Routes, { onAuthChange } from '../../routes/routes';
 import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible';
 import { showLeftDrawer, hideLeftDrawer } from '../actions/setLeftDrawerVisible';
@@ -19,10 +22,20 @@ import LeftDrawer from './Drawer/LeftDrawerContainer';
 import HomeScreen from './Home';
 
 
-/**
- * This example is taking advantage of the composability of the `AppBar`
- * to render different components depending on the application state.
- */
+const styleSheet = createStyleSheet({
+  root: {
+    marginTop: 30,
+    width: '100%',
+  },
+  flex: {
+    flex: 1,
+  },
+  github: {
+    fontSize: 36,
+    color: '#ffffff',
+  },
+});
+
 class MainMenu extends Component {
   constructor(props) {
     super(props);
@@ -41,27 +54,30 @@ class MainMenu extends Component {
       this.props.hideLeftDrawer();
     }
 
-    //console.log('getState', Store.getState());
+    // console.log('getState', Store.getState());
   }
   render() {
-    //console.log('this.props', this.props);
+    // console.log('this.props', this.props);
     const { appState } = this.props;
-    //console.log('showModal', appState);
-
-
+    // console.log('showModal', appState);
+    const classes = this.props.classes;
     return (
       <div>
         {/* <FlatButton label="Login" onTouchTap={() => this.setState({ open: true })} /> */}
-        <AppBar position="static">
+        <AppBar position="static" className="appbar-background">
           <Toolbar>
             <IconButton color="contrast" aria-label="Menu" onTouchTap={() => this.showLeftDrawer()}>
-              <MenuIcon />
+              {appState.leftDrawer.showLD ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
-            <Typography type="title" color="inherit">
-              Home
+            <Typography type="title" color="inherit" className={classes.flex}>
+              <Link to="/">Home</Link>
             </Typography>
+            <IconButton aria-label="Go to Github" className={classes.github} href="https://github.com/ViPig" target="_blank">
+              <FaGithub />
+            </IconButton>
           </Toolbar>
         </AppBar>
+
 
         {/* <LoginModal
           appState={appState}
@@ -77,7 +93,7 @@ class MainMenu extends Component {
 }
 
 function mapStateToProps(state) {
-  //console.log('state', state);
+  // console.log('state', state);
   return {
     appState: state,
   };
@@ -97,4 +113,4 @@ MainMenu.propTypes = {
   appState: PropTypes.object,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(MainMenu));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styleSheet)(MainMenu)));

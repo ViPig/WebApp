@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Networks, Analysis } from '../lib/Collections';
 
 const Future = Npm.require('fibers/future');
 
@@ -44,5 +45,41 @@ Meteor.methods({
     form.append('file', fs.createReadStream(uploadFile));
 
     return future.wait();
+  },
+  
+  networkCollection: function(task_id) {
+	const id = parseInt(task_id);
+    const future = new Future();
+	const host = Analysis.find({'info.id': id }).fetch();
+	const network = Networks.find({ 'task_id': id }).fetch();
+	if(!network.length){
+		let tcp = [];
+		let udp = [];
+		let tcp_edges = [];
+		let udp_edges = [];
+		host[0].network.tcp.map(key => {
+			if (tcp.indexOf(key.src +":"+ key.sport) == -1) {
+				tcp.push(key.src +":"+ key.sport);
+			}
+			if (tcp.indexOf(key.dst +":"+ key.dport) == -1) {
+				tcp.push(key.dst +":"+ key.dport);
+			}
+			tcp_edges.push({src: key.src +":"+ key.sport, dst: key.dst +":"+ key.dport});
+		})
+		
+		host[0].network.udp.map(key => {
+			if (udp.indexOf(key.src +":"+ key.sport) == -1) {
+				udp.push(key.src +":"+ key.sport);
+			}
+			if (udp.indexOf(key.dst +":"+ key.dport) == -1) {
+				udp.push(key.dst +":"+ key.dport);
+			}
+			udp_edges.push({src: key.src +":"+ key.sport, dst: key.dst +":"+ key.dport});
+		})
+		
+		Networks.insert({ task_id: id, tcp: tcp, udp: udp , tcp_edges: tcp_edges, udp_edges: udp_edges});
+	}
+	return "OK";
+	
   },
 });

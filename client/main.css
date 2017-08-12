@@ -6,7 +6,8 @@ body{
     background-position: center;
     background-size: cover;
 }
-.MuiAppBar-colorPrimary-6{
+
+.appbar-background{
     background-color: #5D4037 !important;
 }
 .dropZone {
@@ -92,7 +93,9 @@ button:focus {
     outline: none;
     background-color: transparent !important;
 }
-
+a {
+  color: inherit !important;
+}
 
 
 
