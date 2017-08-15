@@ -85,7 +85,7 @@ class renderLogin extends React.Component {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     const { state } = this.props;
     const classes = this.props.classes;
-    if (state.loginReducer.Logged) {
+    if (Meteor.userId()) {
       return (
         <Redirect to="/Home" />
       );

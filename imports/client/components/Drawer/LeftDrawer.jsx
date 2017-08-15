@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Meteor } from 'meteor/meteor';
-
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 import Drawer from 'material-ui/Drawer';
 import Button from 'material-ui/Button';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
@@ -11,7 +11,8 @@ import Computer from 'material-ui-icons/Computer';
 import DraftsIcon from 'material-ui-icons/Drafts';
 import StarIcon from 'material-ui-icons/Star';
 import SendIcon from 'material-ui-icons/Send';
-import MailIcon from 'material-ui-icons/Mail';
+import Contacts from 'material-ui-icons/Contacts';
+import Description from 'material-ui-icons/Description';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 import Avatar from 'material-ui/Avatar';
@@ -108,52 +109,45 @@ class DrawerUndocked extends React.Component {
           <div>
             <List className={classes.list} disablePadding>
               <div>
-                <ListItem button>
-                  <ListItemIcon>
-                    <Computer />
-                  </ListItemIcon>
-                  <ListItemText primary="Trạng Thái Máy Chủ" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <StarIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Thống Kê Truy Cập" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <SendIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Send mail" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <DraftsIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Drafts" />
-                </ListItem>
+                <Link to="/Status">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <Computer />
+                    </ListItemIcon>
+                    <ListItemText primary="Server Info" />
+                  </ListItem>
+                </Link>
+                <Link to="/Submissions">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Your Submission" />
+                  </ListItem>
+                </Link>
               </div>
             </List>
+
             <Divider />
             <List className={classes.list} disablePadding>
               <div>
                 <ListItem button>
                   <ListItemIcon>
-                    <MailIcon />
+                    <Contacts />
                   </ListItemIcon>
-                  <ListItemText primary="All mail" />
+                  <ListItemText primary="Contact Us" />
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>
-                    <DeleteIcon />
+                    <Description />
                   </ListItemIcon>
-                  <ListItemText primary="Trash" />
+                  <ListItemText primary="About" />
                 </ListItem>
                 <ListItem button>
                   <ListItemIcon>
                     <ReportIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Spam" />
+                  <ListItemText primary="FAQ" />
                 </ListItem>
               </div>
             </List>

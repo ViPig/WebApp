@@ -16,6 +16,8 @@ import Avatar from 'material-ui/Avatar';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { Cookies } from 'meteor/ostrio:cookies';
 import i18n from 'meteor/universe:i18n';
+import { Meteor } from 'meteor/meteor';
+import Snackbar from 'material-ui/Snackbar';
 
 import Routes, { onAuthChange } from '../../routes/routes';
 import { showLoginModal, hideLoginModal } from '../actions/setLoginModalVisible';
@@ -58,6 +60,10 @@ class MainMenu extends Component {
     this.state = {
       anchorEl: undefined,
       open: false,
+      openBar: false,
+      vertical: null,
+      horizontal: null,
+      message: null,
     };
   }
 
@@ -84,12 +90,19 @@ class MainMenu extends Component {
       i18n.setLocale(getLang());
     }
   };
+  handleLogout = state => () => {
+    Meteor.logout();
+    this.setState({ openBar: true, message: 'You have successfully logged out!', ...state });
+  }
+  handleRequestClose = () => {
+    this.setState({ openBar: false });
+  };
 
   render() {
     // console.log('this.props', this.props);
     const { appState } = this.props;
     const classes = this.props.classes;
-
+    const { vertical, horizontal, openBar, message } = this.state;
     return (
       <div>
         {/* <FlatButton label="Login" onTouchTap={() => this.setState({ open: true })} /> */}
@@ -101,6 +114,11 @@ class MainMenu extends Component {
             <Typography type="title" color="inherit" className={classes.flex}>
               <Link to="/"><T>sign_in</T></Link>
             </Typography>
+            {!Meteor.userId() ? <Link to="/Login"><Button raised dense >
+              Join!
+            </Button></Link> : <Button raised dense onClick={this.handleLogout({ vertical: 'top', horizontal: 'right' })}>
+              Logout
+            </Button>}
             <IconButton aria-label="Go to Github" className={classes.github} href="https://github.com/ViPig" target="_blank">
               <FaGithub />
             </IconButton>
@@ -135,6 +153,15 @@ class MainMenu extends Component {
         />
         <Routes />
         {/* <HomeScreen /> */}
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={openBar}
+          onRequestClose={this.handleRequestClose}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{message}</span>}
+        />
       </div>
     );
   }

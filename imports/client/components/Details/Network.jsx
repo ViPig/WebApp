@@ -6,10 +6,12 @@ import cydagre from 'cytoscape-dagre';
 import Chip from 'material-ui/Chip';
 import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
+import i18n from 'meteor/universe:i18n';
 
 import { Networks } from '../../../../lib/Collections';
 
 cydagre(cytoscape);
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet(theme => ({
   chip_tcp: {
@@ -72,7 +74,7 @@ class Network extends Component {
     this.state = {
       cy: {},
       screen: 'tcp',
-      title: 'TCP Connection',
+      title: <T>tcp_connection</T>,
     };
     this.tcp_nodes = [];
     this.udp_nodes = [];

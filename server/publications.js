@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import { Tasks, Analysis , Networks} from '../lib/Collections';
+import { Tasks, Analysis, Networks, ServerInfo } from '../lib/Collections';
 
 import { Files } from '../lib/FileCollection';
 
@@ -17,4 +17,12 @@ Meteor.publish('analysis.public', function(task_id) {
 Meteor.publish('networks.public', function(task_id) {
   const taskId = parseInt(task_id);
   return Networks.find({ task_id: taskId });
+});
+
+Meteor.publish('server_info.public', function() {
+  return ServerInfo.find({});
+});
+
+Meteor.publish('tasks.user_id', function(user_id) {
+  return Tasks.find({ user_id: user_id });
 });

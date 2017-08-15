@@ -20,18 +20,14 @@ const styleSheet = createStyleSheet({
     flex: '1 0 auto',
   },
   cover: {
-    width: 151,
-    height: 151,
+    width: '50%',
+    height: 200,
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
     paddingLeft: 8,
     paddingBottom: 8,
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
   },
 });
 
@@ -43,26 +39,16 @@ function NowPlayingCard(props) {
       <Card className={classes.card}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography type="headline">Live From Space</Typography>
+            <Typography type="headline">Virus Scanning Web Application</Typography>
             <Typography type="subheading" color="secondary">
-              Mac Miller
+              ViPig Team
             </Typography>
           </CardContent>
           <div className={classes.controls}>
-            <IconButton aria-label="Previous">
-              <SkipPreviousIcon />
-            </IconButton>
-            <IconButton aria-label="Play/pause">
-              <PlayArrowIcon className={classes.playIcon} />
-            </IconButton>
-            <IconButton aria-label="Next">
-              <SkipNextIcon />
-            </IconButton>
+            This webapp is a free malware analysis service powered by Cuckoo Sandbox that detects and analyzes unknown threats.
           </div>
         </div>
-        <div className={classes.cover}>
-          <img src="http://localhost:3000/images/ok-128.jpg" alt="Live from space album cover" />
-        </div>
+
       </Card>
     </div>
   );

@@ -41,14 +41,14 @@ class DialogProcess extends React.Component {
     const hash = [];
     const data = files[0];
     const self = this;
-    //console.log(data);
+    // console.log(data);
     reader.readAsArrayBuffer(files[0]);
     reader.onloadend = function () {
       hash.sha256 = SHA256(arrayBufferToWordArray(reader.result)).toString();
-      //console.log('Checksum', hash);
-      //console.log(self);
+      // console.log('Checksum', hash);
+      // console.log(self);
       Meteor.call('CheckCuckooFileExists', hash.sha256, function(err, res) {
-        //console.log('res', res);
+        // console.log('res', res);
         if (res.response && res.response.statusCode === 404) {
           self.props.uploadProcessModal(true, 'Đang tải dữ liệu lên server...', false);
           self.setState({
@@ -57,14 +57,15 @@ class DialogProcess extends React.Component {
           });
           self.uploadIt(files);
         } else if (res && res.statusCode === 200) {
-          //console.log(res.data.sample.id);
+          // console.log(res.data.sample.id);
+          self.handleClose();
           self.getExistsFile(res.data.sample.id);
         }
       });
     };
   }
   uploadingProcess = () => {
-    //console.log('upload state', this.props.processModal.uploading);
+    // console.log('upload state', this.props.processModal.uploading);
 
     if (this.props.processModal.uploading === true && this.props.processModal.file !== '') {
       this.uploadIt(this.props.processModal.file);
@@ -82,6 +83,7 @@ class DialogProcess extends React.Component {
     Meteor.call('pushFileToCuckoo', file, function(err, res) {
       response = JSON.parse(res);
       if (response.task_id) {
+        self.handleClose();
         self.setState({
           task_id: response.task_id,
         });
@@ -116,16 +118,16 @@ class DialogProcess extends React.Component {
 
       // These are the event functions, don't need most of them, it shows where we are in the process
         uploadInstance.on('start', function () {
-          //console.log('Starting');
+          // console.log('Starting');
         });
 
         uploadInstance.on('end', function (error, fileObj) {
-          //console.log('On end File Object: ', fileObj);
+          // console.log('On end File Object: ', fileObj);
           self.pushFile(fileObj._id + fileObj.extensionWithDot);
         });
 
         uploadInstance.on('uploaded', function (error, fileObj) {
-          //console.log('uploaded: ', fileObj);
+          // console.log('uploaded: ', fileObj);
 
         // Remove the filename from the upload box
         // self.refs.fileinput.value = '';
@@ -139,11 +141,11 @@ class DialogProcess extends React.Component {
         });
 
         uploadInstance.on('error', function (error, fileObj) {
-          //console.log(`Error during upload: ${error}`);
+          // console.log(`Error during upload: ${error}`);
         });
 
         uploadInstance.on('progress', function (progress, fileObj) {
-          //console.log(`Upload Percentage: ${progress}`);
+          // console.log(`Upload Percentage: ${progress}`);
         // Update our progress bar
           self.setState({
             progress,
@@ -157,8 +159,8 @@ class DialogProcess extends React.Component {
 
   render() {
     const state = this.props;
-    //console.log('this_state', this.state);
-    //console.log('call render');
+    // console.log('this_state', this.state);
+    // console.log('call render');
     if (state.processModal.file !== '' && state.processModal.hashing) {
       this.hashingProcess(state.processModal.file);
     }

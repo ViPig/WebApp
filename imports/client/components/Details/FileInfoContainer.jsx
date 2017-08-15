@@ -8,8 +8,8 @@ import Files from '../../../../lib/FileCollection';
 export default createContainer(({ match }) => {
   const subscription = Meteor.subscribe('tasks.public', match.params.id);
   const analysis = Meteor.subscribe('analysis.public', match.params.id);
-  const networks = Meteor.subscribe('networks.public',match.params.id);
-  
+  const networks = Meteor.subscribe('networks.public', match.params.id);
+
   const loading = !subscription.ready();
   const loading_a = !analysis.ready();
   const loading_network = !networks.ready();
@@ -25,7 +25,8 @@ export default createContainer(({ match }) => {
   }
   if (!loading_network) {
     network = Networks.find().fetch();
+    Meteor.call('networkCollection', match.params.id);
   }
-	Meteor.call('networkCollection', match.params.id)
+
   return { loading, tasks, loading_a, report, loading_network, network };
 }, FileInfo);

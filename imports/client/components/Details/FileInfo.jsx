@@ -207,7 +207,6 @@ class FileDetail extends Component {
 
 class FileInfo extends Component {
 
-
   render() {
     const classes = this.props.classes;
     const loading = this.props.loading;
@@ -218,6 +217,11 @@ class FileInfo extends Component {
     let report = {};
     let showCircle = true;
     let network;
+    if (!loading && this.props.tasks.length < 1) {
+      return (
+        <div><Paper elevation={4}>Cannot Found Task</Paper></div>
+      );
+    }
     if (this.props.report.length > 0 && this.props.network.length > 0) {
 	  network = this.props.network[0];
       showCircle = false;

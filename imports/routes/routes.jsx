@@ -7,6 +7,8 @@ import FileInfo from '../client/components/Details/FileInfoContainer';
 import HomeScreen from '../client/components/Home';
 import Login from '../client/components/Accounts/Login';
 import SignUp from '../client/components/Accounts/SignUp';
+import Status from '../client/components/ServerStaus/StatusContainer';
+import Submissions from '../client/components/Submissions/SubmissionsContainer';
 
 export const onAuthChange = {
   // Magical
@@ -32,16 +34,22 @@ export default Routes = () => {
         />
         <Route
           path="/Login" render={props => (
-            onAuthChange.isAuthenticated ? (<Redirect to="/Home" />) : (<Login />)
+            (<Login />)
           )}
         />
         <Route
           path="/SignUp" render={props => (
-            onAuthChange.isAuthenticated ? (<Redirect to="/Home" />) : (<SignUp />)
+            (<SignUp />)
           )}
         />
         <Route
+          path="/Status" component={Status}
+        />
+        <Route
           path="/Home" component={HomeScreen}
+        />
+        <Route
+          path="/Submissions" component={Submissions}
         />
         <Route
           path="/Detail/:id"
