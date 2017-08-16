@@ -81,7 +81,6 @@ class renderLogin extends React.Component {
   };
   async showResults() {
     await sleep(500);
-    // console.log('showResults', this.props);
     const formValues = this.props.state.form.LoginForm.values;
     const email = formValues.email;
     const password = formValues.password;
@@ -107,7 +106,6 @@ class renderLogin extends React.Component {
       );
     }
 
-    // console.log('LoginState', Meteor.userId());
     return (
       <div className="login_page">
         <div data-reactroot>
@@ -187,7 +185,6 @@ class renderLogin extends React.Component {
   }
 }
 function mapStateToProps(state) {
-  // console.log('state', state);
   return {
     state,
   };

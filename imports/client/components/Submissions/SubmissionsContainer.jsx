@@ -6,7 +6,6 @@ import { Tasks } from '../../../../lib/Collections';
 
 export default createContainer(({ match }) => {
   const subscription = Meteor.subscribe('tasks.user_id', Meteor.userId());
-  console.log(subscription);
   const loading = !subscription.ready();
 
   let tasks = [];

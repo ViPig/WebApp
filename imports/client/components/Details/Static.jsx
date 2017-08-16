@@ -46,15 +46,11 @@ class StaticAnalysis extends Component {
     const classes = this.props.classes;
     const static_analysis = this.props.static.static;
     const strings = this.props.static.strings;
-    //console.log('message', static_analysis);
-
-    //console.log('message', static_analysis.signature);
     if (!static_analysis.signature) {
       return (
         <div>Nothing</div>
       );
     }
-    //console.log(status);
     if (status === 'static') {
       return (
         <div>

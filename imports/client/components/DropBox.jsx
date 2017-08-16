@@ -56,14 +56,10 @@ class DropBox extends React.Component {
   }
 
   onDrop(files) {
-    // console.log('thisfiles', files);
     this.setState({
       files,
       dropzoneActive: false,
     });
-    // Meteor.call('pushFileToCuckoo', files, function(err, res) {
-    //   //console.log(err, 'debuggg', res, 'debuggg');
-    // });
     this.showProcessModal(files);
   }
   applyMimeTypes(event) {
@@ -84,7 +80,6 @@ class DropBox extends React.Component {
   render() {
     const { accept, files, dropzoneActive } = this.state;
     const { dropbox } = this.props;
-    // console.log(dropbox, 'dropboxdropboxdropboxdropbox');
     let dropzoneRef;
     const overlayStyle = {
       position: 'absolute',
@@ -139,7 +134,6 @@ class DropBox extends React.Component {
 }
 
 function mapStateToProps(state) {
-          // console.log('dropbox', state.processModal);
   return {
     dropbox: state.processModal,
   };

@@ -90,7 +90,6 @@ class SignUp extends React.Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
     const { vertical, horizontal, open, message } = this.state;
-    console.log(this.props);
     if (Meteor.userId()) {
       return (
         <Redirect to="/Home" />

@@ -76,8 +76,6 @@ class MainMenu extends Component {
     } else {
       this.props.hideLeftDrawer();
     }
-
-    // console.log('getState', Store.getState());
   }
   handleLocal = (event) => {
     this.setState({ open: true, anchorEl: event.currentTarget });
@@ -99,7 +97,6 @@ class MainMenu extends Component {
   };
 
   render() {
-    // console.log('this.props', this.props);
     const { appState } = this.props;
     const classes = this.props.classes;
     const { vertical, horizontal, openBar, message } = this.state;
@@ -168,7 +165,6 @@ class MainMenu extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.log('state', state);
   return {
     appState: state,
   };

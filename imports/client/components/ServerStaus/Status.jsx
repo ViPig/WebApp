@@ -173,7 +173,6 @@ class ServerStatus extends Component {
     }
   }
   render() {
-    console.log(this.props);
     this.getDataCPUChart();
     this.getDataMemChart();
     this.getDataNWCChart();
