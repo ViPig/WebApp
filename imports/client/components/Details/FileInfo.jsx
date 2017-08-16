@@ -17,6 +17,7 @@ import SaveIcon from 'material-ui-icons/Save';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import Badge from 'material-ui/Badge';
+import i18n from 'meteor/universe:i18n';
 
 
 import SignatureTable from './SignatureTable';
@@ -28,6 +29,8 @@ import Video from './Video';
 import Network from './Network';
 
 const prettyBytes = require('pretty-bytes');
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const cardheader = {
   // flex: 1,
@@ -150,14 +153,14 @@ class FileDetail extends Component {
               scrollable
               scrollButtons="auto"
             >
-              <Tab label="Signature" />
-              <Tab label="Static Analysis" />
-              <Tab label="Virustotal" />
+              <Tab label={<T>signature</T>} />
+              <Tab label={<T>static_analysis</T>} />
+              <Tab label={<T>virustotal</T>} />
               {/* <Tab label={report.virustotal ? <Badge classes={{ badge: classes.badge }} badgeContent={report.virustotal.positives ? report.virustotal.positives : 0} color="accent" >VirusTotal</Badge> : 'VirusTotal'} /> */}
-              <Tab label="Behavior" />
-              <Tab label="Screenshots" />
-              <Tab label="Video" />
-              <Tab label="Network" />
+              <Tab label={<T>behavior</T>} />
+              <Tab label={<T>screenshots</T>} />
+              <Tab label={<T>video</T>} />
+              <Tab label={<T>network</T>} />
             </Tabs>
           </AppBar>
           {this.state.index === 0 &&
@@ -169,10 +172,10 @@ class FileDetail extends Component {
           {this.state.index === 1 &&
             <TabContainer>
               <Button raised className={classes.button} onClick={this.handleStaticClick({ status: 'static' })}>
-                Static
+                <T>static</T>
               </Button>
               <Button raised className={classes.button} onClick={this.handleStaticClick({ status: 'strings' })}>
-                Strings
+                <T>strings</T>
               </Button>
               <StaticAnalysis status={this.state.status} static={report} />
             </TabContainer>}
@@ -219,7 +222,7 @@ class FileInfo extends Component {
     let network;
     if (!loading && this.props.tasks.length < 1) {
       return (
-        <div><Paper elevation={4}>Cannot Found Task</Paper></div>
+        <div><Paper elevation={4}><T>not_found_task</T></Paper></div>
       );
     }
     if (this.props.report.length > 0 && this.props.network.length > 0) {

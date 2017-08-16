@@ -1,6 +1,6 @@
 body{
     margin: 0px;
-    background: url(https://lh3.googleusercontent.com/0zoOXViblxanBV_Q7Np4A-kuwtWUpzcGIA5Rm2x8VGiogevQkGFhqI8Kv34hh03xPhRBV3dO-DpN5Ao=w1920-h1080-no);
+    background: url(./images/background.png);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -25,8 +25,9 @@ body{
 }
 
 .login_page_paper {
-  height: 100vh;
-  width: 100vw;
+  /*height: 100vh;*/
+  /*width: 100vw;*/
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,7 +101,16 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-
+.tos-paper{
+  padding: 50px;
+}
+.tos-a{
+  color: #ff8337 !important;
+  font-weight: 600;
+}
+.tos-p{
+  color: #ffffff !important;
+}
 /*Responsive*/
 @media only screen and (max-width: 500px) {
   .box-detail{

@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import i18n from 'meteor/universe:i18n';
 
 import App from '../client/components/App';
 import FileInfo from '../client/components/Details/FileInfoContainer';
@@ -9,6 +10,9 @@ import Login from '../client/components/Accounts/Login';
 import SignUp from '../client/components/Accounts/SignUp';
 import Status from '../client/components/ServerStaus/StatusContainer';
 import Submissions from '../client/components/Submissions/SubmissionsContainer';
+import ToSEN from '../client/components/ToS/ToSEN';
+import ToSVI from '../client/components/ToS/ToSVI';
+
 
 export const onAuthChange = {
   // Magical
@@ -50,6 +54,11 @@ export default Routes = () => {
         />
         <Route
           path="/Submissions" component={Submissions}
+        />
+        <Route
+          path="/ToS" render={props => (
+            i18n.getLocale() === 'en' ? (<ToSEN />) : (<ToSVI />)
+          )}
         />
         <Route
           path="/Detail/:id"

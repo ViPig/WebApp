@@ -7,8 +7,11 @@ import Paper from 'material-ui/Paper';
 import { CircularProgress } from 'material-ui/Progress';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
 import Button from 'material-ui/Button';
+import i18n from 'meteor/universe:i18n';
 
 const prettyBytes = require('pretty-bytes');
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet(theme => ({
   paper: {
@@ -60,12 +63,12 @@ class YourSubmissions extends Component {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Task ID</TableCell>
-                    <TableCell>File Name</TableCell>
-                    <TableCell>File Size</TableCell>
-                    <TableCell>Time</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Detail</TableCell>
+                    <TableCell><T>task_id</T></TableCell>
+                    <TableCell><T>file_name</T></TableCell>
+                    <TableCell><T>file_size</T></TableCell>
+                    <TableCell><T>time</T></TableCell>
+                    <TableCell><T>status</T></TableCell>
+                    <TableCell><T>detail</T></TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -90,7 +93,7 @@ class YourSubmissions extends Component {
                         <TableCell>
                           <Link to={`/Detail/${n.task_id}`}>
                             <Button raised dense>
-                              View
+                              <T>view</T>
                             </Button>
                           </Link>
                         </TableCell>

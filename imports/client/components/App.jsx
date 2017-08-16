@@ -92,7 +92,7 @@ class MainMenu extends Component {
   };
   handleLogout = state => () => {
     Meteor.logout();
-    this.setState({ openBar: true, message: 'You have successfully logged out!', ...state });
+    this.setState({ openBar: true, message: <T>logout_success</T>, ...state });
   }
   handleRequestClose = () => {
     this.setState({ openBar: false });
@@ -112,12 +112,12 @@ class MainMenu extends Component {
               {appState.leftDrawer.showLD ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
-              <Link to="/"><T>sign_in</T></Link>
+              <Link to="/"><T>go_home</T></Link>
             </Typography>
             {!Meteor.userId() ? <Link to="/Login"><Button raised dense >
-              Join!
+              <T>join</T>
             </Button></Link> : <Button raised dense onClick={this.handleLogout({ vertical: 'top', horizontal: 'right' })}>
-              Logout
+              <T>log_out</T>
             </Button>}
             <IconButton aria-label="Go to Github" className={classes.github} href="https://github.com/ViPig" target="_blank">
               <FaGithub />
@@ -129,7 +129,7 @@ class MainMenu extends Component {
               aria-owns={this.state.open ? 'simple-menu' : null}
               aria-haspopup="true"
             >
-              {cookies.get('locale') === 'vi' ? <Avatar alt="Tiếng Việt" src="./images/flags/vietnam.png" className={classes.avatar} /> : <Avatar alt="English" src="./images/flags/united-states.png" className={classes.avatar} />}
+              {cookies.get('locale') === 'vi' ? <Avatar alt="Tiếng Việt" src="http://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> : <Avatar alt="English" src="http://vipigteam.com/images/flags/united-states.png" className={classes.avatar} />}
 
             </IconButton>
             <Menu
@@ -138,8 +138,8 @@ class MainMenu extends Component {
               open={this.state.open}
               onRequestClose={() => this.handleSetLocal()}
             >
-              <MenuItem onClick={() => this.handleSetLocal('vi')}><Avatar alt="Remy Sharp" src="./images/flags/vietnam.png" className={classes.avatar} /> Tiếng Việt</MenuItem>
-              <MenuItem onClick={() => this.handleSetLocal('en')}><Avatar alt="Remy Sharp" src="./images/flags/united-states.png" className={classes.avatar} /> English</MenuItem>
+              <MenuItem onClick={() => this.handleSetLocal('vi')}><Avatar alt="VN" src="http://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> <T>vietnamese</T></MenuItem>
+              <MenuItem onClick={() => this.handleSetLocal('en')}><Avatar alt="US" src="http://vipigteam.com/images/flags/united-states.png" className={classes.avatar} /> <T>english</T></MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>

@@ -17,9 +17,12 @@ import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 import Avatar from 'material-ui/Avatar';
 import { withStyles, createStyleSheet } from 'material-ui/styles';
+import i18n from 'meteor/universe:i18n';
 
 import { hideLeftDrawer } from '../../actions/setLeftDrawerVisible';
 import { onAuthChange } from '../../../routes/routes';
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styles = {
   main: {
@@ -114,7 +117,7 @@ class DrawerUndocked extends React.Component {
                     <ListItemIcon>
                       <Computer />
                     </ListItemIcon>
-                    <ListItemText primary="Server Info" />
+                    <ListItemText primary={<T>server_info</T>} />
                   </ListItem>
                 </Link>
                 <Link to="/Submissions">
@@ -122,7 +125,7 @@ class DrawerUndocked extends React.Component {
                     <ListItemIcon>
                       <DraftsIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Your Submission" />
+                    <ListItemText primary={<T>your_submission</T>} />
                   </ListItem>
                 </Link>
               </div>
@@ -131,24 +134,22 @@ class DrawerUndocked extends React.Component {
             <Divider />
             <List className={classes.list} disablePadding>
               <div>
-                <ListItem button>
-                  <ListItemIcon>
-                    <Contacts />
-                  </ListItemIcon>
-                  <ListItemText primary="Contact Us" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <Description />
-                  </ListItemIcon>
-                  <ListItemText primary="About" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <ReportIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="FAQ" />
-                </ListItem>
+                <Link to="/About/">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <Description />
+                    </ListItemIcon>
+                    <ListItemText primary={<T>about_us</T>} />
+                  </ListItem>
+                </Link>
+                <Link to="/ToS/">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <ReportIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={<T>tos_p</T>} />
+                  </ListItem>
+                </Link>
               </div>
             </List>
           </div>

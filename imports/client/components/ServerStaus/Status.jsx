@@ -4,6 +4,9 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { Line, Doughnut, Polar, Bar } from 'react-chartjs-2';
 import Paper from 'material-ui/Paper';
+import i18n from 'meteor/universe:i18n';
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet(theme => ({
 
@@ -204,7 +207,7 @@ class ServerStatus extends Component {
             <Paper elevation={4}>
               <Row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <div className="text-center">Disk</div>
+                  <div className="text-center"><T>disk</T></div>
                   <Doughnut data={this.disk_info} />
                 </Col>
               </Row>
@@ -212,7 +215,7 @@ class ServerStatus extends Component {
             <Paper elevation={4}>
               <Row>
                 <Col xs={12} sm={12} md={12} lg={12}>
-                  <div className="text-center">Network</div>
+                  <div className="text-center"><T>network</T></div>
                   <Row>
                     <Col xs={12} sm={12} md={6} lg={6}>
                       <Polar data={this.nwc_info} />

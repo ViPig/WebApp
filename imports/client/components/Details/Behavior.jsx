@@ -4,6 +4,9 @@ import { withStyles, createStyleSheet } from 'material-ui/styles';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import { Collapsible, CollapsibleItem } from 'react-materialize';
+import i18n from 'meteor/universe:i18n';
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet(theme => ({
   root: {
@@ -39,10 +42,10 @@ class Behavior extends Component {
                       return (
                         <div>
                           <TableRow key={i.toString()}>
-                            From: {file_open[0]}
+                            <T>beh_from</T> {file_open[0]}
                           </TableRow>
                           <TableRow>
-                            To: {file_open[1]}
+                            <T>beh_to</T> {file_open[1]}
                           </TableRow>
                           <hr />
                         </div>

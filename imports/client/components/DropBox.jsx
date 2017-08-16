@@ -6,12 +6,16 @@ import Paper from 'material-ui/Paper';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Button from 'material-ui/Button';
 import Icon from 'material-ui/Icon';
-
+import { BrowserRouter as Router, Switch, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import Typography from 'material-ui/Typography';
+import i18n from 'meteor/universe:i18n';
 
 import { showProcessModal, hideProcessModal } from '../actions/showProcessingModal';
 import Store from '../store/store';
 
 import DialogProcess from './Dialogs/CalculateHash';
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styles = {
   button: {
@@ -52,7 +56,7 @@ class DropBox extends React.Component {
   }
 
   onDrop(files) {
-    //console.log('thisfiles', files);
+    // console.log('thisfiles', files);
     this.setState({
       files,
       dropzoneActive: false,
@@ -70,7 +74,7 @@ class DropBox extends React.Component {
 
   showProcessModal(file) {
     if (!Store.getState().processModal.processStatus) {
-      this.props.showProcessModal(true, file, 'Đang tính toán mã hash...');
+      this.props.showProcessModal(true, file, <T>hashing</T>);
     } else {
       this.props.hideProcessModal();
     }
@@ -80,7 +84,7 @@ class DropBox extends React.Component {
   render() {
     const { accept, files, dropzoneActive } = this.state;
     const { dropbox } = this.props;
-    //console.log(dropbox, 'dropboxdropboxdropboxdropbox');
+    // console.log(dropbox, 'dropboxdropboxdropboxdropbox');
     let dropzoneRef;
     const overlayStyle = {
       position: 'absolute',
@@ -107,7 +111,7 @@ class DropBox extends React.Component {
           ref={(node) => { dropzoneRef = node; }}
           multiple={false}
         >
-          { dropzoneActive && <div style={overlayStyle}>Drop files...</div> }
+          { dropzoneActive && <div style={overlayStyle}><T>drop_file</T></div> }
           <div>
             <h4 className="text-center">
               <Icon className="material-icons" style={{ fontSize: '90px' }}>cloud_upload</Icon>
@@ -120,8 +124,11 @@ class DropBox extends React.Component {
                 color="primary"
                 onTouchTap={() => { dropzoneRef.open(); }}
               >
-                Duyệt
+                <T>upload_file</T>
               </Button>
+              <Typography gutterBottom className="tos-p">
+                <T>accept_tos</T><Link to="/ToS/" className="tos-a"><T>accept_tos_1</T></Link><T>and</T><Link to="/ToS/" className="tos-a"><T>accept_tos_2</T></Link>
+              </Typography>
             </div>
           </div>
         </Dropzone>
@@ -132,20 +139,20 @@ class DropBox extends React.Component {
 }
 
 function mapStateToProps(state) {
-  //console.log('dropbox', state.processModal);
+          // console.log('dropbox', state.processModal);
   return {
     dropbox: state.processModal,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
-    // showLoginModal: (isShowing) => { dispatch(showLoginModal(isShowing)); },
+            // showLoginModal: (isShowing) => { dispatch(showLoginModal(isShowing)); },
     showProcessModal: (status, file, text) => { dispatch(showProcessModal(status, file, text)); },
     hideProcessModal: () => { dispatch(hideProcessModal()); },
   };
 }
 DropBox.propTypes = {
-  // showLoginModal: PropTypes.func.isRequired,
+          // showLoginModal: PropTypes.func.isRequired,
   showProcessModal: PropTypes.func.isRequired,
   hideProcessModal: PropTypes.func.isRequired,
 };

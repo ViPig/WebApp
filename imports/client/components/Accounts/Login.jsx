@@ -9,11 +9,18 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import Input from 'material-ui/Input/Input';
 import Divider from 'material-ui/Divider';
+import Typography from 'material-ui/Typography';
+import InputLabel from 'material-ui/Input/InputLabel';
+import i18n from 'meteor/universe:i18n';
+
 // import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Button from 'material-ui/Button';
+import Snackbar from 'material-ui/Snackbar';
 
 import { onAuthChange } from '../../../routes/routes';
 import { login, logout } from '../../actions/setLoginState';
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet(theme => ({
   container: {
@@ -34,7 +41,6 @@ const style = {
 };
 const style_1 = {
   height: 80,
-  width: 300,
   backgroundColor: '#263238',
 };
 
@@ -61,9 +67,18 @@ class renderLogin extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      open: false,
+      vertical: 'bottom',
+      horizontal: 'right',
+      message: null,
     };
   }
+  handleClick = (message) => {
+    this.setState({ open: true, message: message });
+  };
+  handleRequestClose = () => {
+    this.setState({ open: false });
+  };
   async showResults() {
     await sleep(500);
     // console.log('showResults', this.props);
@@ -72,9 +87,8 @@ class renderLogin extends React.Component {
     const password = formValues.password;
 
     Meteor.loginWithPassword({ email }, password, (err) => {
-      console.log(email, password);
       if (err) {
-        window.alert(JSON.stringify(err, null, 2));
+        this.handleClick(JSON.stringify(err.reason, null, 2));
       } else {
         onAuthChange.authenticate();
         this.props.login();
@@ -83,6 +97,8 @@ class renderLogin extends React.Component {
   }
   render () {
     const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { vertical, horizontal, open, message } = this.state;
+
     const { state } = this.props;
     const classes = this.props.classes;
     if (Meteor.userId()) {
@@ -97,7 +113,7 @@ class renderLogin extends React.Component {
         <div data-reactroot>
           <div className="login_page_paper">
             <div>
-              <Paper style={style} >
+              <Paper>
                 <Paper style={style_1} >
                   {/* <ActionAccountCircle color="#EEEEEE" style={largeIcon} className="login_page_icon" /> */}
                 </Paper>
@@ -107,9 +123,11 @@ class renderLogin extends React.Component {
                     <Grid fluid>
                       <Row>
                         <Col xs={12} sm={12} md={12} lg={12}>
+                          <InputLabel htmlFor="email"><T>email</T></InputLabel>
                           <Field
                             type="email"
                             name="email"
+                            id="email"
                             fullWidth
                             component={renderTextField}
                             label="Email"
@@ -118,8 +136,10 @@ class renderLogin extends React.Component {
                           />
                         </Col>
                         <Col xs={12} sm={12} md={12} lg={12}>
+                          <InputLabel htmlFor="password"><T>password</T></InputLabel>
                           <Field
                             name="password"
+                            id="password"
                             fullWidth
                             component={renderTextField}
                             label="Password"
@@ -134,12 +154,14 @@ class renderLogin extends React.Component {
                             type="submit"
                             disabled={pristine || submitting}
                           >
-                            Login
+                            <T>login</T>
                           </Button>
                         </Col>
                         <Col xs={12} sm={12} md={12} lg={12}>
                           <div className="login_page_register">
-                            <Link to="/SignUp" >Don&apos;t have an account?</Link>
+                            <Link to="/SignUp" ><Typography type="button" gutterBottom>
+                              <T>signup_guide</T>
+                            </Typography></Link>
                           </div>
                         </Col>
 
@@ -151,6 +173,15 @@ class renderLogin extends React.Component {
             </div>
           </div>
         </div>
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={open}
+          onRequestClose={this.handleRequestClose}
+          SnackbarContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id">{message}</span>}
+        />
       </div>
     );
   }

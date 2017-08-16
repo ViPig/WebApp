@@ -7,6 +7,10 @@ import Typography from 'material-ui/Typography';
 import SkipPreviousIcon from 'material-ui-icons/SkipPrevious';
 import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import SkipNextIcon from 'material-ui-icons/SkipNext';
+import i18n from 'meteor/universe:i18n';
+
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 const styleSheet = createStyleSheet({
   card: {
@@ -39,13 +43,13 @@ function NowPlayingCard(props) {
       <Card className={classes.card}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography type="headline">Virus Scanning Web Application</Typography>
+            <Typography type="headline"><T>vipig_name</T></Typography>
             <Typography type="subheading" color="secondary">
-              ViPig Team
+              <T>vipig</T>
             </Typography>
           </CardContent>
           <div className={classes.controls}>
-            This webapp is a free malware analysis service powered by Cuckoo Sandbox that detects and analyzes unknown threats.
+            <T>vipig_caption</T>
           </div>
         </div>
 

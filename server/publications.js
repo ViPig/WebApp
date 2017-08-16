@@ -20,7 +20,7 @@ Meteor.publish('networks.public', function(task_id) {
 });
 
 Meteor.publish('server_info.public', function() {
-  return ServerInfo.find({});
+  return ServerInfo.find({}, { sort: { date: -1 } }, { limit: 1 });
 });
 
 Meteor.publish('tasks.user_id', function(user_id) {

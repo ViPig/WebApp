@@ -10,9 +10,12 @@ import Slide from 'material-ui/transitions/Slide';
 import { Redirect } from 'react-router-dom';
 import Files from '../../../../lib/FileCollection';
 import { hideProcessModal, uploadProcessModal } from '../../actions/showProcessingModal';
+import i18n from 'meteor/universe:i18n';
 
 const CryptoJS = require('crypto-js');
 const SHA256 = require('crypto-js/sha256');
+
+const T = i18n.createComponent(i18n.createTranslator());
 
 arrayBufferToWordArray = (ab) => {
   const i8a = new Uint8Array(ab);
@@ -50,7 +53,7 @@ class DialogProcess extends React.Component {
       Meteor.call('CheckCuckooFileExists', hash.sha256, function(err, res) {
         // console.log('res', res);
         if (res.response && res.response.statusCode === 404) {
-          self.props.uploadProcessModal(true, 'Đang tải dữ liệu lên server...', false);
+          self.props.uploadProcessModal(true, <T>upload_to_server</T>, false);
           self.setState({
             mode: 'determinate',
             progress: 0,
@@ -176,13 +179,10 @@ class DialogProcess extends React.Component {
           open={state.processModal.processStatus}
         >
           <DialogTitle>
-            Đang tải lên ...
+            <T>uploading</T>
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Đợi chờ là hạnh phúc! Xin vui lòng không đóng cửa sổ đến khi quá trình tải lên kết thúc.
-              Thời gian phụ thuộc vào tốc độ mạng và cấu hình máy của bạn, đừng chê chúng tôi chậm.
-            </DialogContentText>
+            <DialogContentText />
           </DialogContent>
           <br /><br />
           <div>{state.processModal.text}</div>
