@@ -24,16 +24,20 @@ Meteor.methods({
     const request = Npm.require('request');
     const future = new Future();
     const uploadFile = FILE_PATH + file;
+	console.log(uploadFile);
+	console.log(file);
     const url = `${HOST}/tasks/create/file`;
     const req = request.post(url, function (err, resp, body) {
       if (err) {
+		console.log(err)
         future.return(err);
       } else {
+		console.log(resp)
         future.return(body);
       }
     });
     const form = req.form();
-    form.append('user_id', Meteor.userId());
+    form.append('user_id', Meteor.userId() == undefined ? 'guest' : Meteor.userId());
     form.append('file', fs.createReadStream(uploadFile));
 
     return future.wait();

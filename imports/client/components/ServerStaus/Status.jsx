@@ -127,8 +127,8 @@ class ServerStatus extends Component {
       this.nwc_data = [];
       this.nwc_label = [];
       const self = this;
-      Object.keys(this.props.info[0].network.ens33.transfer).map(function(key) {
-        self.nwc_data.push(self.props.info[0].network.ens33.transfer[key]);
+      Object.keys(this.props.info[0].network.ens32.transfer).map(function(key) {
+        self.nwc_data.push(self.props.info[0].network.ens32.transfer[key]);
         self.nwc_label.push(key);
       });
       this.nwc_info = {
@@ -152,8 +152,8 @@ class ServerStatus extends Component {
       this.packet_data = [];
       this.packet_label = [];
       const self = this;
-      Object.keys(this.props.info[0].network.ens33.packet).map(function(key) {
-        self.packet_data.push(self.props.info[0].network.ens33.packet[key]);
+      Object.keys(this.props.info[0].network.ens32.packet).map(function(key) {
+        self.packet_data.push(self.props.info[0].network.ens32.packet[key]);
         self.packet_label.push(key);
       });
       this.packet_info = {

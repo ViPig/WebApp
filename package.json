@@ -19,7 +19,7 @@
     "material-ui-icons": "^1.0.0-alpha.19",
     "meteor-node-stubs": "^0.2.11",
     "rc-tabs": "^8.1.1",
-    "react": "^15.5.4",
+    "react": "^15.6.1",
     "react-addons-pure-render-mixin": "^15.5.2",
     "react-chartjs-2": "^2.5.6",
     "react-dom": "^15.5.4",

@@ -126,7 +126,7 @@ class MainMenu extends Component {
               aria-owns={this.state.open ? 'simple-menu' : null}
               aria-haspopup="true"
             >
-              {cookies.get('locale') === 'vi' ? <Avatar alt="Tiếng Việt" src="http://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> : <Avatar alt="English" src="http://vipigteam.com/images/flags/united-states.png" className={classes.avatar} />}
+              {cookies.get('locale') === 'vi' ? <Avatar alt="Tiếng Việt" src="https://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> : <Avatar alt="English" src="https://vipigteam.com/images/flags/united-states.png" className={classes.avatar} />}
 
             </IconButton>
             <Menu
@@ -135,8 +135,8 @@ class MainMenu extends Component {
               open={this.state.open}
               onRequestClose={() => this.handleSetLocal()}
             >
-              <MenuItem onClick={() => this.handleSetLocal('vi')}><Avatar alt="VN" src="http://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> <T>vietnamese</T></MenuItem>
-              <MenuItem onClick={() => this.handleSetLocal('en')}><Avatar alt="US" src="http://vipigteam.com/images/flags/united-states.png" className={classes.avatar} /> <T>english</T></MenuItem>
+              <MenuItem onClick={() => this.handleSetLocal('vi')}><Avatar alt="VN" src="https://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> <T>vietnamese</T></MenuItem>
+              <MenuItem onClick={() => this.handleSetLocal('en')}><Avatar alt="US" src="https://vipigteam.com/images/flags/united-states.png" className={classes.avatar} /> <T>english</T></MenuItem>
             </Menu>
           </Toolbar>
         </AppBar>
