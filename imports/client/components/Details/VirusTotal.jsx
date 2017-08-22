@@ -40,7 +40,7 @@ class VirusTotal extends Component {
     const classes = this.props.classes;
     if (!this.props.virustotal.virustotal.scans) {
       return (
-        <div>Nothing</div>
+        <div />
       );
     }
     const virustotal = this.props.virustotal.virustotal;

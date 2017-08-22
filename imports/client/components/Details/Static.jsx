@@ -48,7 +48,7 @@ class StaticAnalysis extends Component {
     const strings = this.props.static.strings;
     if (!static_analysis.signature) {
       return (
-        <div>Nothing</div>
+        <div />
       );
     }
     if (status === 'static') {

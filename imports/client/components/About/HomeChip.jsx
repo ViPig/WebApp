@@ -8,6 +8,7 @@ import SkipPreviousIcon from 'material-ui-icons/SkipPrevious';
 import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import SkipNextIcon from 'material-ui-icons/SkipNext';
 import i18n from 'meteor/universe:i18n';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 
 
 const T = i18n.createComponent(i18n.createTranslator());
@@ -39,22 +40,28 @@ function NowPlayingCard(props) {
   const classes = props.classes;
 
   return (
-    <div>
-      <Card className={classes.card}>
-        <div className={classes.details}>
-          <CardContent className={classes.content}>
-            <Typography type="headline"><T>vipig_name</T></Typography>
-            <Typography type="subheading" color="secondary">
-              <T>vipig</T>
-            </Typography>
-          </CardContent>
-          <div className={classes.controls}>
-            <T>vipig_caption</T>
+    <Row>
+      <Col xs={12} sm={12} md={3} lg={3}>
+        <Row center="xs">
+          <img src="https://vipigteam.com/images/logo.png" alt="" />
+        </Row>
+      </Col>
+      <Col xs={12} sm={12} md={9} lg={9}>
+        <Card className={classes.card}>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography type="headline"><T>vipig_name</T></Typography>
+              <Typography type="subheading" color="secondary">
+                <T>vipig</T>
+              </Typography>
+            </CardContent>
+            <div className={classes.controls}>
+              <T>vipig_caption</T>
+            </div>
           </div>
-        </div>
-
-      </Card>
-    </div>
+        </Card>
+      </Col>
+    </Row>
   );
 }
 

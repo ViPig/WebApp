@@ -78,9 +78,9 @@ class Screenshots extends Component {
         </GridList>
         {isOpen &&
           <Lightbox
-            mainSrc={`${SCREENSHOTS}${task_id}/${photoIndex}`}
-            nextSrc={`${SCREENSHOTS}${task_id}/${this.createNumber((Number(photoIndex) + 1) % image_length)}`}
-            prevSrc={`${SCREENSHOTS}${task_id}/${this.createNumber((Number(photoIndex) - 1) % image_length)}`}
+            mainSrc={`${SCREENSHOTS}/${task_id}/${photoIndex}`}
+            nextSrc={`${SCREENSHOTS}/${task_id}/${this.createNumber((Number(photoIndex) + 1) % image_length)}`}
+            prevSrc={`${SCREENSHOTS}/${task_id}/${this.createNumber((Number(photoIndex) - 1) % image_length)}`}
 
             onCloseRequest={() => this.setState({ isOpen: false })}
             onMovePrevRequest={() => this.setState({

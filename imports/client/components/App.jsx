@@ -126,7 +126,7 @@ class MainMenu extends Component {
               aria-owns={this.state.open ? 'simple-menu' : null}
               aria-haspopup="true"
             >
-              {cookies.get('locale') === 'vi' ? <Avatar alt="Tiếng Việt" src="https://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} /> : <Avatar alt="English" src="https://vipigteam.com/images/flags/united-states.png" className={classes.avatar} />}
+              {cookies.get('locale') === 'en' ? <Avatar alt="English" src="https://vipigteam.com/images/flags/united-states.png" className={classes.avatar} /> : <Avatar alt="Tiếng Việt" src="https://vipigteam.com/images/flags/vietnam.png" className={classes.avatar} />}
 
             </IconButton>
             <Menu

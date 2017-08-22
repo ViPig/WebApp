@@ -12,7 +12,7 @@ import Status from '../client/components/ServerStaus/StatusContainer';
 import Submissions from '../client/components/Submissions/SubmissionsContainer';
 import ToSEN from '../client/components/ToS/ToSEN';
 import ToSVI from '../client/components/ToS/ToSVI';
-
+import About from '../client/components/About/AboutUs.jsx';
 
 export const onAuthChange = {
   // Magical
@@ -54,6 +54,9 @@ export default Routes = () => {
         />
         <Route
           path="/Submissions" component={Submissions}
+        />
+        <Route
+          path="/About" component={About}
         />
         <Route
           path="/ToS" render={props => (

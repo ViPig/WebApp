@@ -6,7 +6,10 @@ body{
     background-position: center;
     background-size: cover;
 }
-
+.about-bg{
+    width: 100%;
+    height: 100%;
+}
 .appbar-background{
     background-color: #5D4037 !important;
 }

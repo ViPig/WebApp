@@ -74,7 +74,7 @@ class Network extends Component {
     this.state = {
       cy: {},
       screen: 'tcp',
-      title: <T>tcp_connection</T>,
+      title: <T>TCP Connection</T>,
     };
     this.tcp_nodes = [];
     this.udp_nodes = [];
